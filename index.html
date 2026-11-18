@@ -3,261 +3,227 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#ffffff">
-<title>HypeON</title>
-<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2222%22 fill=%22%23ffc700%22/><text x=%2250%22 y=%2272%22 font-size=%2260%22 font-weight=%22800%22 text-anchor=%22middle%22 font-family=%22sans-serif%22>H</text></svg>">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;700;800&display=swap" rel="stylesheet">
+<meta name="theme-color" content="#0a0518">
+<title>HypeOn</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2224%22 fill=%22%237c3aed%22/><text x=%2250%22 y=%2276%22 font-size=%2270%22 font-weight=%22900%22 font-style=%22italic%22 text-anchor=%22middle%22 fill=%22white%22 font-family=%22sans-serif%22>H</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
-:root{color-scheme:light;--bg:#fff;--soft:#f4f5f7;--line:#e4e6eb;--ink:#12141a;--mut:#6b7280;--y:#ffc700;--ok:#12a150}
+:root{--bg:#0a0518;--bg2:#160a33;--card:#1a0d3a99;--line:#3b1d7a;--ink:#fff;--mut:#a89cc8;--ac:#8b3dff;--ac2:#b66bff;--ok:#34d399;--in:#0f0726}
+[data-t=light]{--bg:#f6f2ff;--bg2:#ebe3ff;--card:#fff;--line:#ddd0f7;--ink:#1a1030;--mut:#6b5f8a;--in:#f1ebff}
 *{box-sizing:border-box;margin:0}
-body{font:16px/1.5 Archivo,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--ink);background:var(--bg);padding-bottom:calc(150px + env(safe-area-inset-bottom,0px))}
-header,main{max-width:560px;margin:0 auto;padding-left:20px;padding-right:20px}
-header{display:flex;align-items:center;justify-content:space-between;padding-top:calc(16px + env(safe-area-inset-top,0px));padding-bottom:4px}
-.logo{font-weight:800;font-size:22px;letter-spacing:-.02em}
-.logo i{font-style:normal;background:var(--y);padding:0 .22em;border-radius:6px;margin-left:2px}
-#st{font-size:13px;color:var(--mut);display:flex;align-items:center;gap:6px}
-#st:before{content:"";width:8px;height:8px;border-radius:50%;background:#c5c9d1}#st.on:before{background:var(--ok)}
-main{padding-top:12px}
-h1{font-size:32px;line-height:1.08;font-weight:800;letter-spacing:-.03em;margin:12px 0 22px}
-h2{font-size:16px;font-weight:700;margin:34px 0 6px}
-.view{display:none}.view.on{display:block}
-input,select,textarea{font:inherit;color:inherit;width:100%;background:var(--soft);border:1.5px solid transparent;border-radius:12px;padding:14px;outline:0}
-input:focus,select:focus,textarea:focus{border-color:var(--ink);background:#fff}
-input:focus-visible,select:focus-visible,textarea:focus-visible,button:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
-label{display:block;font-size:14px;font-weight:600;margin-top:18px}
-label>input,label>select{margin-top:6px;font-weight:400}
-.btn{font:inherit;font-weight:700;border:0;border-radius:12px;padding:14px 20px;background:var(--y);color:var(--ink);cursor:pointer;width:100%;margin-top:12px}
-.btn.dark{background:var(--ink);color:#fff}.btn:disabled{opacity:.5}
-.btn.out{background:#fff;border:1.5px solid var(--line)}
-.lnk{font:inherit;font-size:14px;background:none;border:0;color:var(--mut);text-decoration:underline;padding:8px 0;margin-right:16px;cursor:pointer}
-.mut{color:var(--mut);font-size:14px}
-.opts{display:flex;gap:10px;align-items:center;margin-top:14px;font-size:14px;color:var(--mut)}
-.opts select{width:auto;padding:9px 12px;font-size:14px}
-.chk{display:flex;gap:10px;align-items:flex-start;font-size:14px;color:var(--mut);margin-top:14px;font-weight:400}
-.chk input{width:20px;height:20px;margin-top:2px;accent-color:var(--ink);flex:none}
-.proj,.item{border-top:1px solid var(--line);padding:18px 0}
-.hd{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}
-.u{font-weight:600;font-size:14px;word-break:break-all}
-.tag{font-size:12px;font-weight:700;padding:3px 10px;border-radius:99px;background:var(--soft);white-space:nowrap}
-.tag.Agendado{background:#fff1b8}.tag.Postado{background:#d7f5e3;color:#0b6b36}
-.clip{display:grid;grid-template-columns:26px 1fr auto;gap:12px;align-items:center;padding:12px;margin:2px -12px;border-radius:12px;cursor:pointer}
-.clip.sel{background:#fff6cc}
-.dot{width:24px;height:24px;border-radius:50%;border:2px solid #c5c9d1;display:grid;place-items:center;font-size:13px;font-weight:800}
-.sel .dot{background:var(--ink);border-color:var(--ink);color:var(--y)}
-.clip b{display:block;font-weight:600;line-height:1.3}
-.clip .lnk{margin:0;padding:4px 0}
-.load{height:4px;background:var(--soft);border-radius:4px;overflow:hidden;margin-top:12px}
-.load:after{content:"";display:block;height:100%;width:35%;background:var(--y);animation:mv 1.2s ease-in-out infinite alternate}
-@keyframes mv{to{margin-left:65%}}
-@media(prefers-reduced-motion:reduce){.load:after{animation:none}}
-.item textarea{margin:12px 0 10px;resize:vertical}
-.pair{display:grid;grid-template-columns:1fr;gap:10px}
-.empty{color:var(--mut);padding:20px 0}
-#bar{position:fixed;left:0;right:0;bottom:calc(60px + env(safe-area-inset-bottom,0px));padding:0 20px 12px;display:none}
-#bar.on{display:block}#bar .btn{max-width:520px;display:block;margin:0 auto;box-shadow:0 8px 24px rgba(18,20,26,.25)}
-nav{position:fixed;left:0;right:0;bottom:0;background:#fff;border-top:1px solid var(--line);display:flex;padding-bottom:env(safe-area-inset-bottom,0px)}
-nav button{flex:1;font:inherit;font-weight:700;font-size:14px;background:none;border:0;border-top:3px solid transparent;padding:16px 0;color:var(--mut);cursor:pointer;margin-top:-1px}
-nav button.on{color:var(--ink);border-top-color:var(--y)}
-details{margin-top:22px}summary{font-weight:600;font-size:14px;cursor:pointer}
-#toast{position:fixed;left:50%;bottom:150px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:11px 18px;border-radius:99px;font-size:14px;opacity:0;pointer-events:none;transition:opacity .2s;z-index:9;max-width:90%;text-align:center}
-#toast.on{opacity:1}
+body{font:15px/1.45 Inter,system-ui,sans-serif;color:var(--ink);background:radial-gradient(900px 500px at 85% -10%,#6d28d94d,transparent),linear-gradient(160deg,var(--bg),var(--bg2));background-attachment:fixed;min-height:100vh}
+.app{display:grid;grid-template-columns:232px 1fr;min-height:100vh}
+aside{position:sticky;top:0;height:100vh;padding:22px 16px;border-right:1px solid var(--line);display:flex;flex-direction:column;gap:6px}
+.logo{display:flex;flex-direction:column;align-items:center;margin:4px 0 18px;font-weight:900;font-style:italic;font-size:26px;letter-spacing:-.03em}
+.logo svg{width:54px;height:54px}.logo b{color:var(--ac2)}
+.nv{display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:12px;color:var(--mut);font-weight:600;cursor:pointer;border:0;background:none;font:inherit;font-weight:600;text-align:left;width:100%}
+.nv.on{background:linear-gradient(90deg,#7c2df0,#9b4dff);color:#fff;box-shadow:0 6px 24px #7c3aed66}
+.nv i{font-style:normal;width:20px;text-align:center}.bd{margin-left:auto;background:var(--ac);color:#fff;border-radius:99px;font-size:11px;padding:1px 8px}
+.plan{margin-top:auto}
+.c{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;box-shadow:0 0 32px #7c3aed1a;backdrop-filter:blur(6px)}
+.pg{padding:22px 28px 110px;max-width:1100px;width:100%}
+.top{display:flex;gap:14px;align-items:center;margin-bottom:22px}
+.top input{flex:1}
+.av{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,#7c3aed,#c026d3);display:grid;place-items:center;font-weight:800;flex:none}
+input,select,textarea{font:inherit;color:var(--ink);width:100%;background:var(--in);border:1px solid var(--line);border-radius:12px;padding:12px 14px;outline:0}
+input:focus,select:focus,textarea:focus{border-color:var(--ac2)}
+.b{font:inherit;font-weight:700;color:#fff;border:0;border-radius:12px;padding:12px 18px;background:linear-gradient(90deg,#7c2df0,#a24dff);cursor:pointer;box-shadow:0 6px 20px #7c3aed55}
+.b.g{background:transparent;border:1px solid var(--line);box-shadow:none;color:var(--ink)}.b.w{background:#d9c6ff;color:#2a0f5c}
+.lk{font:inherit;font-size:13px;color:var(--ac2);background:none;border:0;cursor:pointer;padding:6px 0;margin-right:14px}
+h1{font-size:30px;font-weight:800;letter-spacing:-.02em}h2{font-size:18px;font-weight:700;margin-bottom:12px}
+.mut{color:var(--mut);font-size:13px}
+.kp{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:20px 0}
+.kp .c{display:flex;align-items:center;gap:14px}.ic{width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,#6d28d9,#a855f7);display:grid;place-items:center;font-size:20px;flex:none}
+.kp b{font-size:26px;display:block;line-height:1.1}
+.g2{display:grid;grid-template-columns:2fr 1fr;gap:16px;margin-bottom:16px}
+.act{display:flex;gap:12px;align-items:center;margin-bottom:14px}.act .ic{width:38px;height:38px;border-radius:10px;font-size:16px}
+.ban{display:flex;align-items:center;gap:16px;justify-content:space-between;background:linear-gradient(90deg,#2a0f5c,#6d28d9)}
+.gr{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:14px}
+.pc{cursor:pointer;padding:0;overflow:hidden}.th{aspect-ratio:16/9;background:linear-gradient(135deg,#3b0f8c,#1a0d3a) center/cover;position:relative}
+.th s{position:absolute;right:8px;top:8px;background:#000a;font-size:11px;padding:2px 7px;border-radius:6px;text-decoration:none;color:#fff}
+.pc div.i{padding:10px 12px}.pc b{display:block;font-size:14px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.np{display:grid;place-items:center;text-align:center;min-height:150px;border-style:dashed;color:var(--mut)}
+.tabs{display:flex;gap:6px;margin-bottom:14px}.tabs button{font:inherit;font-weight:600;border:0;background:none;color:var(--mut);padding:8px 16px;border-radius:99px;cursor:pointer}.tabs .on{background:#7c3aed40;color:var(--ink)}
+.row{display:flex;gap:14px;align-items:center}.row>div{flex:1;min-width:0}
+.sm{width:64px;height:40px;border-radius:8px;background:linear-gradient(135deg,#3b0f8c,#1a0d3a) center/cover;flex:none}
+.sw{width:44px;height:26px;border-radius:99px;background:#3b2a66;position:relative;cursor:pointer;flex:none;border:0}
+.sw:after{content:"";position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:#fff;transition:left .15s}.sw.on{background:var(--ac)}.sw.on:after{left:21px}
+.ex{margin-top:14px;display:grid;gap:10px;grid-template-columns:1fr 1fr}.ex textarea,.ex .f{grid-column:1/-1}
+.clip{display:flex;gap:12px;align-items:center;padding:12px;border-radius:12px;border:1px solid transparent;cursor:pointer}
+.clip.sel{background:#7c3aed30;border-color:var(--ac)}
+.dot{width:22px;height:22px;border-radius:50%;border:2px solid var(--mut);display:grid;place-items:center;font-size:12px;flex:none}.sel .dot{background:var(--ac);border-color:var(--ac);color:#fff}
+.ld{height:4px;background:var(--in);border-radius:4px;overflow:hidden;margin-top:10px}.ld:after{content:"";display:block;width:35%;height:100%;background:var(--ac2);animation:m 1.2s ease-in-out infinite alternate}
+@keyframes m{to{margin-left:65%}}@media(prefers-reduced-motion:reduce){.ld:after{animation:none}}
+.pb{height:8px;border-radius:9px;background:var(--in);flex:1;overflow:hidden}.pb i{display:block;height:100%;background:linear-gradient(90deg,#7c3aed,#c084fc)}
+.dn{width:130px;height:130px;border-radius:50%;display:grid;place-items:center;flex:none}.dn span{width:92px;height:92px;border-radius:50%;background:var(--bg);display:grid;place-items:center;font-weight:800;font-size:20px}
+.ft{display:grid;gap:12px;margin-bottom:14px}.ft label{font-size:13px;color:var(--mut);display:block}.ft label>*{margin-top:5px}
+.chk{display:flex;gap:10px;font-size:13px;color:var(--mut);align-items:flex-start}.chk input{width:18px;height:18px;margin-top:1px;accent-color:var(--ac);flex:none}
+#fab{position:fixed;left:50%;transform:translateX(-50%);bottom:84px;display:none;z-index:6}#fab.on{display:block}
+.bn{display:none}
+#toast{position:fixed;left:50%;bottom:130px;transform:translateX(-50%);background:#fff;color:#1a0d3a;padding:10px 18px;border-radius:99px;font-weight:600;font-size:14px;opacity:0;pointer-events:none;transition:opacity .2s;z-index:9;text-align:center;max-width:90%}#toast.on{opacity:1}
+.v{display:none}.v.on{display:block}
+@media(max-width:900px){.app{display:block}aside{display:none}.pg{padding:16px 16px 120px}.kp,.g2{grid-template-columns:1fr}.top input{display:none}.top{justify-content:space-between}
+.bn{display:flex;position:fixed;left:0;right:0;bottom:0;background:var(--bg);border-top:1px solid var(--line);padding:6px 4px calc(6px + env(safe-area-inset-bottom,0px));z-index:7}
+.bn .nv{flex-direction:column;gap:2px;font-size:11px;padding:6px 2px;text-align:center;justify-content:center;align-items:center}.bn .nv.on{background:none;box-shadow:none;color:var(--ac2)}.ban{flex-direction:column;align-items:flex-start}}
 </style>
 </head>
 <body>
-<header><div class="logo">Hype<i>ON</i></div><span id="st"></span></header>
-<main>
+<div class="app">
+<aside id="sb"></aside>
+<div class="pg">
+  <div class="top"><div class="mut" id="mb" style="display:none"></div><input id="q" placeholder="Buscar vídeos, projetos..." aria-label="Buscar"><button class="nv" style="width:auto;padding:8px" onclick="go('notif')" aria-label="Notificações">🔔<span class="bd" id="bd"></span></button><div class="av" id="av"></div></div>
 
-<section class="view on" id="v-cortes">
-  <h1>Cole a live.<br>Escolha os melhores cortes.</h1>
-  <input id="url" type="url" inputmode="url" placeholder="Link da live (YouTube ou Twitch)" aria-label="Link da live">
-  <div class="opts">Legenda <select id="tpl" aria-label="Estilo da legenda"></select></div>
-  <label class="chk"><input type="checkbox" id="ok">Tenho autorização do dono da live para fazer cortes.</label>
-  <button class="btn" id="go">Gerar cortes</button>
-  <div id="projects"></div>
-</section>
+  <section class="v on" id="v-dash">
+    <h1>Bem-vindo de volta!</h1><p class="mut">Sua central de cortes e criação de conteúdo.</p>
+    <div class="kp" id="kp"></div>
+    <div class="g2"><div class="c"><h2>Seu desempenho <span class="mut">· cortes gerados em 30 dias</span></h2><div id="ch"></div></div>
+    <div class="c"><h2>Atividade recente</h2><div id="ac"></div></div></div>
+    <div class="c ban"><div><b style="font-size:18px">Transforme suas lives em cortes virais!</b><div class="mut" style="color:#d9c6ff">Cole o link, escolha os melhores momentos e agende.</div></div><button class="b w" onclick="go('cortes')">Começar agora →</button></div>
+  </section>
 
-<section class="view" id="v-fila">
-  <h1>Fila de postagem</h1>
-  <div id="queue"></div>
-</section>
+  <section class="v" id="v-cortes">
+    <h1>Cortes</h1><p class="mut" style="margin-bottom:16px">Cole o link da live e a IA do OpusClip gera os cortes legendados.</p>
+    <div class="c ft"><label>Link da live<input id="url" type="url" placeholder="https://www.youtube.com/watch?v=..."></label>
+      <label>Estilo da legenda<select id="tpl"></select></label>
+      <label class="chk"><input type="checkbox" id="ok">Tenho autorização do dono da live para fazer cortes.</label>
+      <div><button class="b" id="gen">✂️ Gerar cortes</button></div></div>
+    <div id="cl"></div>
+  </section>
 
-<section class="view" id="v-conexao">
-  <h1>Conexão</h1>
-  <p class="mut">Sem chave, o app roda em modo demo com cortes de exemplo. A chave fica salva só neste navegador.</p>
-  <label>Chave da API do OpusClip<input id="key" type="password" autocomplete="off"></label>
-  <label>ID da organização (opcional)<input id="org" autocomplete="off"></label>
-  <button class="btn" id="save">Salvar</button>
-  <button class="btn out" id="load">Carregar contas e templates</button>
-  <details><summary>Avançado</summary>
-    <label>Endereço de proxy<input id="proxy" placeholder="https://seu-worker.workers.dev"></label>
-    <p class="mut" style="margin-top:6px">Use só se o navegador bloquear a conexão direta com o OpusClip.</p>
-  </details>
-  <h2>Seus dados</h2>
-  <p class="mut">Tudo fica neste aparelho. Faça backup de vez em quando.</p>
-  <button class="btn out" id="exp">Baixar backup</button>
-  <button class="btn out" id="impb">Restaurar backup</button>
-  <input type="file" id="imp" accept=".json" hidden>
-  <button class="lnk" id="wipe" style="margin-top:16px">Apagar tudo</button>
-</section>
-</main>
+  <section class="v" id="v-proj"><div class="row" style="margin-bottom:6px"><div><h1>Projetos</h1><p class="mut">Organize e gerencie seus projetos.</p></div><button class="b" style="flex:none" onclick="go('cortes')">+ Novo projeto</button></div><div class="gr" id="gp" style="margin-top:18px"></div></section>
 
-<div id="bar"><button class="btn dark" id="add"></button></div>
-<nav>
-  <button class="on" data-v="cortes">Cortes</button>
-  <button data-v="fila">Fila</button>
-  <button data-v="conexao">Conexão</button>
-</nav>
+  <section class="v" id="v-pub"><div class="row" style="margin-bottom:14px"><div><h1>Publicações</h1><p class="mut">Gerencie e agende suas publicações.</p></div></div>
+    <div class="tabs" id="tb"></div><div id="pl"></div></section>
+
+  <section class="v" id="v-ana"><h1>Analytics</h1><p class="mut">Números que você preenche em cada publicação. O OpusClip não envia as views das redes.</p>
+    <div class="kp" id="ak"></div><div class="g2"><div class="c"><h2>Plataformas</h2><div id="pf"></div></div><div class="c row"><div><h2>Engajamento</h2><div class="mut">Curtidas e compartilhamentos sobre as views</div></div><div class="dn" id="dn"></div></div></div></section>
+
+  <section class="v" id="v-notif"><h1>Notificações</h1><div class="c" style="margin-top:16px" id="nl"></div></section>
+
+  <section class="v" id="v-plan"><h1>Planos</h1><div class="c" style="margin-top:16px"><h2>Plano do OpusClip</h2><p class="mut" style="margin-bottom:12px">A API que este app usa vem no plano Pro (beta), Max ou Business do OpusClip. Os créditos contam 1 por minuto de vídeo processado. Preços e limites mudam, confira na página oficial antes de assinar.</p><a class="b" style="text-decoration:none;display:inline-block" href="https://www.opus.pro/pricing" target="_blank" rel="noopener">Ver planos do OpusClip</a></div></section>
+
+  <section class="v" id="v-aj"><h1>Configurações</h1><p class="mut">Personalize sua experiência.</p>
+    <div class="c ft" style="margin-top:16px"><h2>Perfil</h2><label>Nome do canal<input id="nm"></label></div>
+    <div class="c ft"><h2>Integrações · OpusClip</h2><p class="mut">A chave fica salva só neste navegador. Sem chave, o app roda em modo demo.</p>
+      <label>Chave da API<input id="key" type="password" autocomplete="off"></label><label>ID da organização (opcional)<input id="org" autocomplete="off"></label>
+      <label>Proxy (opcional, só se o navegador bloquear a conexão)<input id="px" placeholder="https://seu-worker.workers.dev"></label>
+      <div><button class="b g" id="ld">Carregar contas e templates</button></div></div>
+    <div class="c ft"><h2>Aparência</h2><label>Tema<select id="th"><option value="light">Claro</option><option value="dark">Escuro</option><option value="auto">Automático</option></select></label></div>
+    <div class="c"><h2>Seus dados</h2><p class="mut" style="margin-bottom:10px">Tudo fica neste aparelho. Faça backup de vez em quando.</p><button class="b g" id="ex">Baixar backup</button> <button class="b g" id="ib">Restaurar backup</button> <input type="file" id="im" accept=".json" hidden> <button class="lk" id="wp">Apagar tudo</button></div>
+    <div style="margin-top:16px"><button class="b" id="sv" style="width:100%">Salvar alterações</button></div></section>
+
+  <section class="v" id="v-sup"><h1>Suporte</h1><div class="c" style="margin-top:16px"><p style="margin-bottom:12px">Dúvidas sobre a conta, créditos ou API do OpusClip:</p><a class="lk" href="https://help.opus.pro" target="_blank" rel="noopener">Central de ajuda ↗</a><a class="lk" href="https://help.opus.pro/api-reference/overview" target="_blank" rel="noopener">Documentação da API ↗</a></div></section>
+
+  <section class="v" id="v-mais"><h1>Mais</h1><div class="c" style="margin-top:16px" id="ml"></div></section>
+</div></div>
+<button class="b" id="fab"></button>
+<nav class="bn" id="bn"></nav>
 <div id="toast" role="status"></div>
 
 <script>
-const $=s=>document.querySelector(s);
-const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const $=s=>document.querySelector(s),esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const PRE=[['preset-fancy-Gameplay','Gameplay'],['preset-fancy-Karaoke','Karaoke'],['preset-fancy-Beasty','Beasty'],['preset-fancy-Popline','Popline'],['preset-fancy-Simple','Simple']];
-const blank=()=>({cfg:{key:'',org:'',proxy:''},projects:[],queue:[],accounts:[],templates:[],tpl:PRE[0][0]});
-let S=blank(),cur='cortes';
+const NAV=[['dash','⌂','Dashboard','Início'],['cortes','✂️','Cortes','Cortes'],['proj','📁','Projetos','Projetos'],['pub','📅','Publicações'],['ana','📊','Analytics','Analytics'],['notif','🔔','Notificações'],['plan','💎','Planos'],['aj','⚙️','Ajustes'],['sup','🎧','Suporte']];
+const blank=()=>({cfg:{key:'',org:'',proxy:''},name:'HypeOn',theme:'dark',projects:[],queue:[],accounts:[],templates:[],tpl:PRE[0][0],log:[],unread:0,open:null,tab:'all',exp:-1,q:''});
+let S=blank(),cur='dash';
 try{S=Object.assign(blank(),JSON.parse(localStorage.getItem('hypeon')||'{}'))}catch(e){}
 const save=()=>{try{localStorage.setItem('hypeon',JSON.stringify(S))}catch(e){}};
-function toast(t){const e=$('#toast');e.textContent=t;e.classList.add('on');clearTimeout(toast.t);toast.t=setTimeout(()=>e.classList.remove('on'),2600)}
-function copy(t){navigator.clipboard?.writeText(t).then(()=>toast('Legenda copiada'),()=>toast('Não foi possível copiar'))}
-document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>{
-  cur=b.dataset.v;
-  document.querySelectorAll('nav button,.view').forEach(x=>x.classList.remove('on'));
-  b.classList.add('on');$('#v-'+cur).classList.add('on');scrollTo(0,0);render();
-});
-
-/* OpusClip API */
-async function api(path,opt={}){
-  const base=(S.cfg.proxy||'https://api.opus.pro').replace(/\/$/,'');
-  const h={'Content-Type':'application/json',Authorization:'Bearer '+S.cfg.key};
-  if(S.cfg.org)h['x-opus-org-id']=S.cfg.org;
-  const r=await fetch(base+path,{...opt,headers:h});
-  if(!r.ok)throw new Error('O OpusClip respondeu com erro '+r.status);
-  return r.status===204?{}:r.json();
-}
+const toast=t=>{const e=$('#toast');e.textContent=t;e.classList.add('on');clearTimeout(toast.t);toast.t=setTimeout(()=>e.classList.remove('on'),2600)};
+const copy=t=>navigator.clipboard?.writeText(t).then(()=>toast('Legenda copiada'),()=>toast('Não foi possível copiar'));
+const ago=t=>{const m=Math.round((Date.now()-t)/6e4);return m<1?'agora':m<60?'há '+m+' min':m<1440?'há '+Math.round(m/60)+' h':'há '+Math.round(m/1440)+' d'};
+const fmt=d=>new Date(d).toLocaleString('pt-BR',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'});
+const log=(txt,ic)=>{S.log.unshift({txt,ic,t:Date.now()});S.log=S.log.slice(0,30);S.unread++};
+function theme(){document.documentElement.dataset.t=S.theme==='auto'?(matchMedia('(prefers-color-scheme:light)').matches?'light':'dark'):S.theme}
+const LOGO='<svg viewBox="0 0 64 64"><path d="M10 8h13l-3 18h14l3-18h13L42 56H29l3-20H18l-3 20H2z" fill="#fff" transform="skewX(-8) translate(6 0)"/><path d="M40 18l-11 17h8l-5 14 15-20h-9z" fill="#b66bff"/></svg>';
+function go(v){cur=v;document.querySelectorAll('.v').forEach(x=>x.classList.toggle('on',x.id==='v-'+v));if(v==='notif')S.unread=0;scrollTo(0,0);render()}
+/* API */
+async function api(p,o={}){const b=(S.cfg.proxy||'https://api.opus.pro').replace(/\/$/,''),h={'Content-Type':'application/json',Authorization:'Bearer '+S.cfg.key};if(S.cfg.org)h['x-opus-org-id']=S.cfg.org;
+  const r=await fetch(b+p,{...o,headers:h});if(!r.ok)throw new Error('O OpusClip respondeu com erro '+r.status);return r.status===204?{}:r.json()}
 const pick=(o,...k)=>{for(const x of k)if(o?.[x]!=null)return o[x]};
-function normClip(c,i){
-  const raw=String(pick(c,'id','clipId')||i),ms=pick(c,'durationMs','duration');
-  return{id:raw,cid:String(pick(c,'curationId')||raw.split('.').pop()),
-    title:pick(c,'title','name')||'Corte '+(i+1),
-    score:pick(c,'score','viralityScore','viralScore'),
-    dur:ms?Math.round(ms>1000?ms/1000:ms):null,
-    video:pick(c,'uriForPreview','previewUrl','uriForExport')||''};
-}
+function nc(c,i){const raw=String(pick(c,'id','clipId')||i),ms=pick(c,'durationMs','duration');return{id:raw,cid:String(pick(c,'curationId')||raw.split('.').pop()),title:pick(c,'title','name')||'Corte '+(i+1),score:pick(c,'score','viralityScore','viralScore'),dur:ms?Math.round(ms>1000?ms/1000:ms):null,video:pick(c,'uriForPreview','previewUrl','uriForExport')||''}}
 const demo=()=>['Perseguição insana em Liberty City','Niko perde o controle do carro','O diálogo mais engraçado do Roman','Tiroteio épico na ponte','A explosão que ninguém esperava'].map((t,i)=>({id:'d'+i,cid:'d'+i,title:t,score:96-i*5,dur:22+i*7,video:''}));
-
-async function generate(){
+async function gen(){
   const url=$('#url').value.trim();
   if(!/^https?:\/\//.test(url))return toast('Cole um link que comece com https://');
   if(!$('#ok').checked)return toast('Confirme a autorização do dono da live');
-  const p={id:'p'+Date.now(),url,status:'run',clips:[],selected:[],at:new Date().toLocaleString('pt-BR',{dateStyle:'short',timeStyle:'short'})};
-  S.projects.unshift(p);$('#url').value='';$('#ok').checked=false;save();render();
-  try{
-    if(!S.cfg.key){await new Promise(r=>setTimeout(r,1800));p.clips=demo();p.status='ok'}
-    else{
-      const r=await api('/api/clip-projects',{method:'POST',body:JSON.stringify({videoUrl:url,brandTemplateId:S.tpl})});
-      p.pid=pick(r,'projectId','id')||pick(r.data,'projectId','id');
-      if(!p.pid)throw new Error('O OpusClip não devolveu o ID do projeto');
-      save();poll(p);
-    }
-  }catch(e){p.status='erro';toast(e.message)}
-  save();render();
-}
-async function poll(p){
-  for(let i=0;i<180&&p.status==='run';i++){
-    await new Promise(r=>setTimeout(r,10000));
-    try{
-      const r=await api('/api/exportable-clips?q=findByProjectId&projectId='+encodeURIComponent(p.pid));
-      const l=Array.isArray(r)?r:(r.data||r.clips||[]);
-      if(l.length){p.clips=l.map(normClip);p.status='ok';save();render();toast('Seus cortes estão prontos');return}
-    }catch(e){}
-  }
-  if(p.status==='run'){p.status='erro';save();render()}
-}
-
-/* Seleção e fila */
+  const p={id:'p'+Date.now(),url,ts:Date.now(),status:'run',clips:[],sel:[]};S.projects.unshift(p);S.open=p.id;$('#url').value='';$('#ok').checked=false;save();render();
+  try{if(!S.cfg.key){await new Promise(r=>setTimeout(r,1800));p.clips=demo();p.status='ok';log('Novo corte criado (demo)','▶')}
+    else{const r=await api('/api/clip-projects',{method:'POST',body:JSON.stringify({videoUrl:url,brandTemplateId:S.tpl})});p.pid=pick(r,'projectId','id')||pick(r.data,'projectId','id');if(!p.pid)throw new Error('O OpusClip não devolveu o ID do projeto');save();poll(p)}
+  }catch(e){p.status='erro';toast(e.message)}save();render()}
+async function poll(p){for(let i=0;i<180&&p.status==='run';i++){await new Promise(r=>setTimeout(r,1e4));
+  try{const r=await api('/api/exportable-clips?q=findByProjectId&projectId='+encodeURIComponent(p.pid)),l=Array.isArray(r)?r:(r.data||r.clips||[]);
+    if(l.length){p.clips=l.map(nc);p.status='ok';log(l.length+' cortes prontos','▶');save();render();toast('Seus cortes estão prontos');return}}catch(e){}}
+  if(p.status==='run'){p.status='erro';save();render()}}
 const proj=id=>S.projects.find(p=>p.id===id);
-function tog(pid,cid){const p=proj(pid),i=p.selected.indexOf(cid);i<0?p.selected.push(cid):p.selected.splice(i,1);save();render()}
-function delP(pid){S.projects=S.projects.filter(p=>p.id!==pid);save();render()}
-$('#add').onclick=()=>{
-  let n=0;
-  S.projects.forEach(p=>{p.clips.filter(c=>p.selected.includes(c.id)).forEach(c=>{
-    S.queue.push({pid:p.pid,cid:c.cid,title:c.title,cap:c.title+'\n\n#gtaiv #gta4 #libertycity #cortes #hypeon',when:'',acc:'',st:'Pendente'});n++});p.selected=[]});
-  save();render();toast(n+(n>1?' cortes adicionados':' corte adicionado')+' à fila');
-};
-async function sched(i){
-  const q=S.queue[i],a=S.accounts[q.acc];
-  if(!S.cfg.key||!q.pid)return toast('Conecte o OpusClip na aba Conexão para agendar');
-  if(!a)return toast('Escolha a conta de postagem');
+function tog(pid,cid){const p=proj(pid),i=p.sel.indexOf(cid);i<0?p.sel.push(cid):p.sel.splice(i,1);save();render()}
+function delP(id){if(confirm('Excluir este projeto?')){S.projects=S.projects.filter(p=>p.id!==id);save();render()}}
+function openP(id){S.open=id;go('cortes')}
+$('#fab').onclick=()=>{let n=0;S.projects.forEach(p=>{p.clips.filter(c=>p.sel.includes(c.id)).forEach(c=>{S.queue.push({pid:p.pid,cid:c.cid,title:c.title,url:p.url,cap:c.title+'\n\n#gtaiv #gta4 #libertycity #cortes #hypeon',when:'',acc:'',plat:'YouTube',st:'Pendente',views:0,likes:0,shares:0});n++});p.sel=[]});
+  log(n+' cortes adicionados às publicações','☷');save();toast(n+(n>1?' cortes adicionados':' corte adicionado')+' em Publicações');go('pub')};
+async function sched(i){const q=S.queue[i],a=S.accounts[q.acc];
+  if(!S.cfg.key||!q.pid)return toast('Conecte o OpusClip em Ajustes para agendar');if(!a)return toast('Escolha a conta de postagem');
   if(!q.when||new Date(q.when)<=new Date())return toast('Escolha uma data e hora no futuro');
-  try{
-    const r=await api('/api/publish-schedules',{method:'POST',body:JSON.stringify({projectId:q.pid,clipId:q.cid,postAccountId:a.postAccountId,...(a.subAccountId?{subAccountId:a.subAccountId}:{}),postDetail:{title:q.title.slice(0,100),mediaType:'video',custom:{description:q.cap||'',privacy:'public'}},publishAt:new Date(q.when).toISOString()})});
-    q.sid=r.data?.scheduleId||r.scheduleId;q.st='Agendado';save();render();toast('Corte agendado');
-  }catch(e){toast(e.message)}
-}
+  try{const r=await api('/api/publish-schedules',{method:'POST',body:JSON.stringify({projectId:q.pid,clipId:q.cid,postAccountId:a.postAccountId,...(a.subAccountId?{subAccountId:a.subAccountId}:{}),postDetail:{title:q.title.slice(0,100),mediaType:'video',custom:{description:q.cap||'',privacy:'public'}},publishAt:new Date(q.when).toISOString()})});
+    q.sid=r.data?.scheduleId||r.scheduleId;q.st='Agendado';log('Publicação agendada: '+q.title,'📅');save();render();toast('Corte agendado')}catch(e){toast(e.message)}}
 async function unsched(i){const q=S.queue[i];try{await api('/api/publish-schedules/'+encodeURIComponent(q.sid),{method:'DELETE'});q.sid=null;q.st='Pendente';save();render();toast('Agendamento cancelado')}catch(e){toast(e.message)}}
-function setSt(i,st){S.queue[i].st=st;save();render()}
-function rmQ(i){S.queue.splice(i,1);save();render()}
-
-/* Tela */
+const setSt=(i,s)=>{S.queue[i].st=s;if(s==='Postado')log('Publicado: '+S.queue[i].title,'☁');save();render()};
+const rmQ=i=>{S.queue.splice(i,1);S.exp=-1;save();render()};
+const tgE=i=>{S.exp=S.exp===i?-1:i;render()};
+const setQ=(i,k,v,n)=>{S.queue[i][k]=n?+v:v;save();if(n)render()};
+/* gráficos */
+function chart(a){const w=600,h=170,m=Math.max(1,...a),P=a.map((v,i)=>[i*w/(a.length-1),h-10-v/m*(h-34)]),d=P.map((p,i)=>(i?'L':'M')+p[0].toFixed(1)+' '+p[1].toFixed(1)).join('');
+  return `<svg viewBox="0 0 ${w} ${h}" preserveAspectRatio="none" style="width:100%;height:${h}px"><defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#a855f7" stop-opacity=".5"/><stop offset="1" stop-color="#a855f7" stop-opacity="0"/></linearGradient></defs><path d="${d}L${w} ${h}L0 ${h}Z" fill="url(#g)"/><path d="${d}" fill="none" stroke="#b66bff" stroke-width="3" vector-effect="non-scaling-stroke"/></svg>`}
+const kp=l=>l.map(x=>`<div class="c"><div class="ic">${x[2]}</div><div><span class="mut">${x[0]}</span><b>${x[1]}</b></div></div>`).join('');
+const yt=u=>(u.match(/(?:v=|youtu\.be\/|live\/)([\w-]{11})/)||[])[1];
+const thumb=u=>yt(u)?`style="background-image:url(https://i.ytimg.com/vi/${yt(u)}/mqdefault.jpg)"`:'';
+/* render */
 function render(){
-  $('#st').textContent=S.cfg.key?'OpusClip conectado':'Modo demo';
-  $('#st').classList.toggle('on',!!S.cfg.key);
-  $('#tpl').innerHTML=PRE.concat(S.templates.map(t=>[t.templateId,'★ '+t.name])).map(x=>`<option value="${esc(x[0])}">${esc(x[1])}</option>`).join('');
-  $('#tpl').value=S.tpl;
-  $('#projects').innerHTML=S.projects.length?`<h2>Seus projetos</h2>`+S.projects.map(p=>`
-    <div class="proj">
-      <div class="hd"><div><div class="u">${esc(p.url)}</div><div class="mut">${esc(p.at)}</div></div>
-        <button class="lnk" style="margin:0" onclick="delP('${p.id}')">Excluir</button></div>
-      ${p.status==='run'?'<p class="mut" style="margin-top:10px">Cortando a live. Pode levar alguns minutos. Mantenha esta aba aberta.</p><div class="load"></div>'
-       :p.status==='erro'?'<p class="mut" style="margin-top:10px">Não deu certo. Confira a chave na aba Conexão e tente de novo.</p>'
-       :`<div style="margin-top:8px">${p.clips.map(c=>`
-        <div class="clip ${p.selected.includes(c.id)?'sel':''}" onclick="tog('${p.id}','${esc(c.id)}')">
-          <span class="dot">${p.selected.includes(c.id)?'✓':''}</span>
-          <div><b>${esc(c.title)}</b><span class="mut">${c.dur?c.dur+' s':''}${c.dur&&c.score!=null?' · ':''}${c.score!=null?'nota '+esc(c.score):''}</span></div>
-          ${c.video?`<a class="lnk" href="${esc(c.video)}" target="_blank" rel="noopener" onclick="event.stopPropagation()">Ver</a>`:''}
-        </div>`).join('')}</div>`}
-    </div>`).join(''):'';
-  const n=S.projects.reduce((a,p)=>a+p.selected.length,0);
-  $('#bar').classList.toggle('on',n>0&&cur==='cortes');
-  $('#add').textContent='Adicionar '+n+(n>1?' cortes':' corte')+' à fila';
-  $('#queue').innerHTML=S.queue.length?S.queue.map((q,i)=>`
-    <article class="item">
-      <div class="hd"><b>${esc(q.title)}</b><span class="tag ${q.st}">${q.st}</span></div>
-      <textarea rows="4" aria-label="Legenda" onchange="S.queue[${i}].cap=this.value;save()">${esc(q.cap)}</textarea>
-      <div class="pair">
-        <input type="datetime-local" aria-label="Data e hora" value="${esc(q.when)}" onchange="S.queue[${i}].when=this.value;save()">
-        ${S.accounts.length?`<select aria-label="Conta" onchange="S.queue[${i}].acc=this.value;save()"><option value="">Escolha a conta</option>${S.accounts.map((a,k)=>`<option value="${k}" ${String(q.acc)===String(k)?'selected':''}>${esc(a.platform.replace('_BUSINESS','').replace('_PAGE',''))} · ${esc(a.extUserName)}</option>`).join('')}</select>`:''}
-      </div>
-      ${q.st==='Agendado'?`<button class="btn out" onclick="unsched(${i})">Cancelar agendamento</button>`:`<button class="btn" onclick="sched(${i})">Agendar</button>`}
-      <div><button class="lnk" onclick="copy(S.queue[${i}].cap)">Copiar legenda</button>
-        <button class="lnk" onclick="setSt(${i},'${q.st==='Postado'?'Pendente':'Postado'}')">${q.st==='Postado'?'Desmarcar postado':'Marcar como postado'}</button>
-        <button class="lnk" onclick="rmQ(${i})">Remover</button></div>
-    </article>`).join(''):'<p class="empty">A fila está vazia. Gere cortes, selecione os melhores e adicione aqui.</p>';
+  const q=S.q.toLowerCase(),conn=!!S.cfg.key;
+  $('#sb').innerHTML=`<div class="logo">${LOGO}<span>Hype<b>On</b></span></div>`+NAV.map(n=>`<button class="nv ${cur===n[0]?'on':''}" onclick="go('${n[0]}')"><i>${n[1]}</i>${n[2]}${n[0]==='notif'&&S.unread?`<span class="bd">${S.unread}</span>`:''}</button>`).join('')+
+   `<div class="c plan"><b>${conn?'OpusClip conectado':'Modo demo'}</b><p class="mut" style="margin:4px 0 10px">${conn?'Pronto para gerar cortes reais.':'Conecte a API para gerar cortes de verdade.'}</p><button class="b" style="padding:8px 14px;font-size:13px" onclick="go('${conn?'plan':'aj'}')">${conn?'Ver plano':'Conectar'}</button></div>`;
+  const B=[['dash','⌂','Início'],['cortes','✂️','Cortes'],['proj','📁','Projetos'],['ana','📊','Analytics'],['mais','⋯','Mais']];
+  $('#bn').innerHTML=B.map(n=>`<button class="nv ${cur===n[0]||(n[0]==='mais'&&['pub','notif','plan','aj','sup'].includes(cur))?'on':''}" onclick="go('${n[0]}')"><i>${n[1]}</i>${n[2]}</button>`).join('');
+  $('#ml').innerHTML=NAV.filter(n=>['pub','notif','plan','aj','sup'].includes(n[0])).map(n=>`<button class="nv" onclick="go('${n[0]}')"><i>${n[1]}</i>${n[2]}</button>`).join('');
+  $('#mb').style.display='block';$('#mb').innerHTML=`<div class="logo" style="flex-direction:row;margin:0;font-size:22px;gap:8px">${LOGO.replace('<svg','<svg style="width:32px;height:32px"')}<span>Hype<b>On</b></span></div>`;
+  if(innerWidth>900)$('#mb').style.display='none';
+  $('#av').textContent=(S.name||'H')[0].toUpperCase();$('#bd').textContent=S.unread||'';
+  const ready=S.projects.reduce((a,p)=>a+p.clips.length,0),act=S.queue.filter(x=>x.st!=='Postado').length;
+  $('#kp').innerHTML=kp([['Total de cortes',ready,'▶'],['Na fila de publicação',act,'📅'],['Projetos ativos',S.projects.length,'⚡']]);
+  const days=Array(30).fill(0);S.projects.forEach(p=>{const d=29-Math.floor((Date.now()-p.ts)/864e5);if(d>=0)days[d]+=p.clips.length});
+  $('#ch').innerHTML=chart(days)+'<div class="row mut" style="justify-content:space-between"><span>30 dias atrás</span><span>hoje</span></div>';
+  $('#ac').innerHTML=S.log.slice(0,4).map(l=>`<div class="act"><div class="ic">${l.ic}</div><div><b style="font-size:14px">${esc(l.txt)}</b><div class="mut">${ago(l.t)}</div></div></div>`).join('')||'<p class="mut">Nada por aqui ainda. Gere seu primeiro corte.</p>';
+  $('#nl').innerHTML=S.log.map(l=>`<div class="act"><div class="ic">${l.ic}</div><div><b style="font-size:14px">${esc(l.txt)}</b><div class="mut">${ago(l.t)}</div></div></div>`).join('')||'<p class="mut">Sem notificações.</p>';
+  $('#tpl').innerHTML=PRE.concat(S.templates.map(t=>[t.templateId,'★ '+t.name])).map(x=>`<option value="${esc(x[0])}">${esc(x[1])}</option>`).join('');$('#tpl').value=S.tpl;
+  const cp=proj(S.open)||S.projects[0];
+  $('#cl').innerHTML=cp?`<div class="c"><div class="row"><div><b style="word-break:break-all">${esc(cp.url)}</b><div class="mut">${ago(cp.ts)}</div></div><button class="lk" onclick="delP('${cp.id}')">Excluir</button></div>`+
+   (cp.status==='run'?'<p class="mut" style="margin-top:10px">Cortando a live. Pode levar alguns minutos. Mantenha esta aba aberta.</p><div class="ld"></div>':cp.status==='erro'?'<p class="mut" style="margin-top:10px">Não deu certo. Confira a chave em Ajustes e tente de novo.</p>':
+   '<div style="margin-top:10px">'+cp.clips.map(c=>`<div class="clip ${cp.sel.includes(c.id)?'sel':''}" onclick="tog('${cp.id}','${esc(c.id)}')"><span class="dot">${cp.sel.includes(c.id)?'✓':''}</span><div style="flex:1"><b>${esc(c.title)}</b><span class="mut">${c.dur?c.dur+' s':''}${c.dur&&c.score!=null?' · ':''}${c.score!=null?'nota '+esc(c.score):''}</span></div>${c.video?`<a class="lk" href="${esc(c.video)}" target="_blank" rel="noopener" onclick="event.stopPropagation()">Ver</a>`:''}</div>`).join('')+'</div>')+'</div>':'';
+  const n=S.projects.reduce((a,p)=>a+p.sel.length,0);$('#fab').classList.toggle('on',n>0&&cur==='cortes');$('#fab').textContent='Adicionar '+n+(n>1?' cortes':' corte')+' às publicações';
+  $('#gp').innerHTML=`<div class="c np pc" onclick="go('cortes')"><div><div style="font-size:28px">+</div><b>Novo projeto</b><div class="mut">Comece do zero</div></div></div>`+S.projects.filter(p=>p.url.toLowerCase().includes(q)).map(p=>`<div class="c pc" onclick="openP('${p.id}')"><div class="th" ${thumb(p.url)}><s>${p.status==='ok'?p.clips.length+' cortes':p.status==='run'?'processando':'erro'}</s></div><div class="i"><b>${esc(p.url.replace(/^https?:\/\/(www\.)?/,''))}</b><span class="mut">${ago(p.ts)}</span></div></div>`).join('');
+  const T=[['all','Todos'],['Agendado','Agendados'],['Postado','Publicados']];
+  $('#tb').innerHTML=T.map(t=>`<button class="${S.tab===t[0]?'on':''}" onclick="S.tab='${t[0]}';render()">${t[1]}</button>`).join('');
+  const L=S.queue.map((x,i)=>[x,i]).filter(([x])=>(S.tab==='all'||x.st===S.tab)&&x.title.toLowerCase().includes(q));
+  $('#pl').innerHTML=L.map(([x,i])=>`<div class="c" style="margin-bottom:12px"><div class="row"><div class="sm" ${thumb(x.url||'')}></div><div><b>${esc(x.title)}</b><div class="mut">${x.st}${x.when?' · '+fmt(x.when):''} · ${esc(x.plat)}</div></div><button class="sw ${x.st==='Postado'?'on':''}" aria-label="Marcar como publicado" onclick="setSt(${i},'${x.st==='Postado'?'Pendente':'Postado'}')"></button><button class="lk" style="margin:0" onclick="tgE(${i})">${S.exp===i?'Fechar':'Editar'}</button></div>`+
+   (S.exp===i?`<div class="ex"><textarea rows="4" onchange="setQ(${i},'cap',this.value)">${esc(x.cap)}</textarea><input type="datetime-local" value="${esc(x.when)}" onchange="setQ(${i},'when',this.value)"><select onchange="setQ(${i},'plat',this.value)">${['YouTube','TikTok','Instagram'].map(p=>`<option ${x.plat===p?'selected':''}>${p}</option>`).join('')}</select>
+   ${S.accounts.length?`<select class="f" onchange="setQ(${i},'acc',this.value)"><option value="">Escolha a conta de postagem</option>${S.accounts.map((a,k)=>`<option value="${k}" ${String(x.acc)===String(k)?'selected':''}>${esc(a.platform.replace('_BUSINESS','').replace('_PAGE',''))} · ${esc(a.extUserName)}</option>`).join('')}</select>`:''}
+   <input type="number" placeholder="Views" value="${x.views||''}" onchange="setQ(${i},'views',this.value,1)"><input type="number" placeholder="Curtidas" value="${x.likes||''}" onchange="setQ(${i},'likes',this.value,1)"><input type="number" placeholder="Compartilhamentos" value="${x.shares||''}" onchange="setQ(${i},'shares',this.value,1)">
+   <div class="f">${x.st==='Agendado'?`<button class="b g" onclick="unsched(${i})">Cancelar agendamento</button>`:`<button class="b" onclick="sched(${i})">Agendar</button>`} <button class="lk" onclick="copy(S.queue[${i}].cap)">Copiar legenda</button><button class="lk" onclick="rmQ(${i})">Remover</button></div></div>`:'')+'</div>').join('')||'<p class="mut">Nenhuma publicação aqui. Gere cortes, selecione os melhores e adicione.</p>';
+  const P=S.queue.filter(x=>x.st==='Postado'),sm=k=>P.reduce((a,x)=>a+(x[k]||0),0),V=sm('views'),f=n=>n>=1e6?(n/1e6).toFixed(1)+'M':n>=1e3?(n/1e3).toFixed(1)+'K':n;
+  $('#ak').innerHTML=kp([['Visualizações',f(V),'👁'],['Curtidas',f(sm('likes')),'♥'],['Compartilhamentos',f(sm('shares')),'↗']]);
+  $('#pf').innerHTML=['YouTube','TikTok','Instagram'].map(p=>{const v=P.filter(x=>x.plat===p).reduce((a,x)=>a+(x.views||0),0),pc=V?Math.round(v/V*100):0;return `<div class="row" style="margin-bottom:12px"><span style="width:84px">${p}</span><div class="pb"><i style="width:${pc}%"></i></div><span class="mut" style="width:38px;text-align:right">${pc}%</span></div>`}).join('');
+  const er=V?((sm('likes')+sm('shares'))/V*100):0;$('#dn').style.background=`conic-gradient(#a855f7 0 ${Math.min(er,100)}%,#2a1655 0)`;$('#dn').innerHTML=`<span>${er.toFixed(1)}%</span>`;
 }
-
-/* Conexão e backup */
-$('#tpl').onchange=()=>{S.tpl=$('#tpl').value;save()};
-$('#key').value=S.cfg.key;$('#org').value=S.cfg.org;$('#proxy').value=S.cfg.proxy;
-$('#save').onclick=()=>{S.cfg={key:$('#key').value.trim(),org:$('#org').value.trim(),proxy:$('#proxy').value.trim()};save();render();toast('Conexão salva')};
-$('#load').onclick=async()=>{
-  if(!S.cfg.key)return toast('Salve a chave primeiro');
-  try{const a=await api('/api/social-accounts?q=mine');S.accounts=a.data||a;
-    const t=await api('/api/brand-templates?q=mine');S.templates=Array.isArray(t)?t:(t.data||[]);
-    save();render();toast(S.accounts.length+' contas carregadas')}catch(e){toast(e.message)}
-};
-$('#exp').onclick=()=>{
-  const {cfg,...rest}=S;const a=document.createElement('a');
-  a.href=URL.createObjectURL(new Blob([JSON.stringify(rest)],{type:'application/json'}));
-  a.download='hypeon-backup.json';a.click();
-};
-$('#impb').onclick=()=>$('#imp').click();
-$('#imp').onchange=e=>{
-  const f=e.target.files[0];if(!f)return;
-  f.text().then(t=>{const d=JSON.parse(t);S=Object.assign(blank(),d,{cfg:S.cfg});save();render();toast('Backup restaurado')}).catch(()=>toast('Arquivo inválido'));
-};
-$('#wipe').onclick=()=>{if(confirm('Apagar projetos, fila e chave deste aparelho?')){localStorage.removeItem('hypeon');location.reload()}};
-$('#go').onclick=generate;
+/* ações de Ajustes */
+$('#q').oninput=e=>{S.q=e.target.value;if(!['proj','pub'].includes(cur))go('proj');else render()};
+$('#tpl').onchange=()=>{S.tpl=$('#tpl').value;save()};$('#gen').onclick=gen;
+$('#nm').value=S.name;$('#key').value=S.cfg.key;$('#org').value=S.cfg.org;$('#px').value=S.cfg.proxy;$('#th').value=S.theme;
+$('#sv').onclick=()=>{S.name=$('#nm').value.trim()||'HypeOn';S.cfg={key:$('#key').value.trim(),org:$('#org').value.trim(),proxy:$('#px').value.trim()};S.theme=$('#th').value;theme();save();render();toast('Alterações salvas')};
+$('#ld').onclick=async()=>{if(!S.cfg.key)return toast('Salve a chave primeiro');try{const a=await api('/api/social-accounts?q=mine');S.accounts=a.data||a;const t=await api('/api/brand-templates?q=mine');S.templates=Array.isArray(t)?t:(t.data||[]);save();render();toast(S.accounts.length+' contas carregadas')}catch(e){toast(e.message)}};
+$('#ex').onclick=()=>{const{cfg,...r}=S,a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(r)],{type:'application/json'}));a.download='hypeon-backup.json';a.click()};
+$('#ib').onclick=()=>$('#im').click();
+$('#im').onchange=e=>{const f=e.target.files[0];f&&f.text().then(t=>{S=Object.assign(blank(),JSON.parse(t),{cfg:S.cfg});save();render();toast('Backup restaurado')}).catch(()=>toast('Arquivo inválido'))};
+$('#wp').onclick=()=>{if(confirm('Apagar projetos, publicações e chave deste aparelho?')){localStorage.removeItem('hypeon');location.reload()}};
+addEventListener('resize',render);theme();
 S.projects.filter(p=>p.status==='run'&&p.pid&&S.cfg.key).forEach(poll);
 render();
 </script>
