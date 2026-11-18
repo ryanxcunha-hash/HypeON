@@ -40,10 +40,11 @@ button:disabled{opacity:.5}
 .st{font-size:12px;padding:3px 9px;border-radius:99px;background:var(--line)}
 .st.ok{background:var(--ok);color:#06240f}.st.run{background:var(--warn);color:#2b1b00}
 nav{position:fixed;bottom:0;left:0;right:0;background:var(--card);border-top:1px solid var(--line);display:flex;padding:6px 6px calc(6px + env(safe-area-inset-bottom,0px))}
-nav button{flex:1;background:none;color:var(--mut);font-size:11px;padding:6px;font-weight:600;display:flex;flex-direction:column;align-items:center;gap:2px}
+nav{overflow-x:auto}nav button{flex:1;min-width:62px;background:none;color:var(--mut);font-size:11px;padding:6px;font-weight:600;display:flex;flex-direction:column;align-items:center;gap:2px}
 nav button span{font-size:20px}nav button.on{color:var(--ac)}
 .toast{position:fixed;left:50%;bottom:96px;transform:translateX(-50%);background:var(--tx);color:var(--bg);padding:10px 16px;border-radius:99px;font-size:14px;opacity:0;pointer-events:none;transition:.25s;z-index:9}
 .toast.show{opacity:1}
+.bar{height:10px;border-radius:99px;background:linear-gradient(90deg,var(--ac),var(--ac2));margin:4px 0 12px}.kpi{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.kpi div{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px}.kpi b{font-size:24px;display:block}.live img{width:100%;border-radius:10px;margin-bottom:8px}.num{width:30%!important;margin:0!important}
 </style>
 </head>
 <body>
@@ -103,15 +104,18 @@ nav button span{font-size:20px}nav button.on{color:var(--ac)}
     <label>Org ID (opcional)<input id="org" placeholder="x-opus-org-id"></label>
     <label>URL do proxy (opcional)<input id="proxy" placeholder="https://seu-worker.workers.dev"></label>
     <p class="mut" style="margin-top:8px">Se o navegador bloquear a chamada direta (CORS), use um proxy simples como um Cloudflare Worker.</p>
-    <div class="row" style="margin-top:12px"><button id="save">Salvar</button><button class="ghost" id="wipe">Apagar dados</button></div>
+    <label>YouTube Data API key (aba Lives)<input id="yt" type="password"></label><button class="ghost sm" style="margin-top:12px" id="load">Carregar contas e templates do OpusClip</button><div class="row" style="margin-top:12px"><button id="save">Salvar</button><button class="ghost" id="wipe">Apagar dados</button></div>
   </div>
 </section>
+<section class="tab" id="t-lives"><div class="row" style="margin-bottom:12px"><h2 style="flex:1;margin:0">Lives de GTA IV</h2><button class="sm" id="lv">🔄 Buscar</button></div><p class="mut" style="margin-bottom:12px">Usa a YouTube Data API (chave na aba Conexão). Cada busca gasta 100 unidades da cota diária de 10.000.</p><div id="lives"></div><a class="mut" target="_blank" rel="noopener" href="https://www.twitch.tv/search?term=GTA%20IV">Ver GTA IV na Twitch ↗</a></section>
+<section class="tab" id="t-painel"><h2>Painel</h2><div class="kpi" id="kpi"></div><div class="card" style="margin-top:14px"><h3>Views por corte</h3><div id="top"></div></div><p class="mut">O OpusClip não devolve as views das redes. Preencha views, likes e comentários na Fila quando marcar “Postado”.</p></section>
+<section class="tab" id="t-parc"><div class="card"><h2>Parcerias e autorizações</h2><p class="mut">Registre quem liberou cortes. Lives de canais “Autorizado” não pedem confirmação.</p><input id="sn" placeholder="Nome do canal (igual ao do YouTube)"><input id="sl" placeholder="Link do canal (opcional)"><div class="row" style="margin-top:12px"><button id="sa">Adicionar</button><button class="ghost" id="sm">Copiar pedido de autorização</button></div></div><div id="strs"></div></section>
 </main>
 
 <nav>
   <button class="on" data-t="cortes"><span>✂️</span>Cortes</button>
   <button data-t="fila"><span>📅</span>Fila</button>
-  <button data-t="ideias"><span>💡</span>Ideias</button>
+  <button data-t="lives"><span>🔴</span>Lives</button><button data-t="painel"><span>📊</span>Painel</button><button data-t="ideias"><span>💡</span>Ideias</button><button data-t="parc"><span>🤝</span>Parcerias</button>
   <button data-t="config"><span>⚙️</span>Conexão</button>
 </nav>
 <div class="toast" id="toast"></div>
@@ -119,7 +123,7 @@ nav button span{font-size:20px}nav button.on{color:var(--ac)}
 <script>
 const $=s=>document.querySelector(s);
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-let S={cfg:{key:'',org:'',proxy:''},projects:[],queue:[]};
+let S={cfg:{key:'',org:'',proxy:'',yt:''},projects:[],queue:[],accounts:[],templates:[],streamers:[],tpl:'preset-fancy-Gameplay'};
 try{S=Object.assign(S,JSON.parse(localStorage.getItem('hypeon')||'{}'))}catch(e){}
 const save=()=>{try{localStorage.setItem('hypeon',JSON.stringify(S))}catch(e){}};
 function toast(t){const e=$('#toast');e.textContent=t;e.classList.add('show');setTimeout(()=>e.classList.remove('show'),2200)}
@@ -143,7 +147,7 @@ const pick=(o,...k)=>{for(const x of k)if(o?.[x]!=null)return o[x]};
 function normClip(c,i){
   const ms=pick(c,'durationMs','duration');
   return{
-    id:String(pick(c,'id','clipId')||i),
+    id:String(pick(c,'id','clipId')||i),cid:String(pick(c,'curationId')||String(pick(c,'id','clipId')||i).split('.').pop()),
     title:pick(c,'title','name')||'Corte '+(i+1),
     desc:pick(c,'description','hook')||'',
     score:pick(c,'score','viralityScore','viralScore'),
@@ -154,19 +158,21 @@ function normClip(c,i){
 async function generate(){
   const url=$('#url').value.trim();
   if(!/^https?:\/\//.test(url)){toast('Cole um link válido');return}
+  const ok=LCH&&S.streamers.some(x=>x.st==='Autorizado'&&x.canal.toLowerCase()===LCH.toLowerCase());
+  if(!ok&&!confirm('Você tem autorização do dono desta live para fazer cortes?'))return;
   $('#go').disabled=true;$('#msg').textContent='Enviando…';
-  const p={id:'p'+Date.now(),url,status:'run',clips:[],selected:[],at:new Date().toLocaleString('pt-BR')};
+  const p={id:'p'+Date.now(),url,canal:LCH,status:'run',clips:[],selected:[],at:new Date().toLocaleString('pt-BR')};
   S.projects.unshift(p);save();render();
   try{
     if(!S.cfg.key){await new Promise(r=>setTimeout(r,1800));p.clips=demo();p.status='ok';}
     else{
-      const r=await api('/api/clip-projects',{method:'POST',body:JSON.stringify({videoUrl:url})});
+      const r=await api('/api/clip-projects',{method:'POST',body:JSON.stringify({videoUrl:url,brandTemplateId:$('#tpl').value})});
       p.pid=pick(r,'projectId','id')||pick(r.data,'projectId','id');
       if(!p.pid)throw new Error('Resposta sem ID do projeto');
       save();poll(p);
     }
   }catch(e){p.status='erro';toast(e.message+' · veja a aba Conexão')}
-  $('#go').disabled=false;$('#msg').textContent='';$('#url').value='';save();render();
+  $('#go').disabled=false;$('#msg').textContent='';$('#url').value='';LCH='';save();render();
 }
 async function poll(p){
   for(let i=0;i<120&&p.status==='run';i++){
@@ -214,9 +220,9 @@ function render(){
       <label>Data de postagem<input type="datetime-local" value="${esc(q.when||'')}" onchange="S.queue[${i}].when=this.value;save()"></label>
       <label>Legenda<textarea rows="2" onchange="S.queue[${i}].cap=this.value;save()">${esc(q.cap||'')}</textarea></label>
       <div class="row" style="margin-top:10px">
-        <select style="width:auto;margin:0" onchange="S.queue[${i}].st=this.value;save()">
+        <select style="width:auto;margin:0" onchange="S.queue[${i}].st=this.value;save();render()">
           ${['Pendente','Agendado','Postado'].map(s=>`<option ${q.st===s?'selected':''}>${s}</option>`).join('')}</select>
-        <button class="ghost sm" onclick="copy(S.queue[${i}].cap||S.queue[${i}].title)">Copiar legenda</button>
+        ${S.accounts.length?`<select style="width:auto;margin:0" onchange="S.queue[${i}].acc=this.value;save()"><option value="">Conta…</option>${S.accounts.map((a,k)=>`<option value="${k}" ${q.acc==k?'selected':''}>${esc(a.platform.split('_')[0])} · ${esc(a.extUserName)}</option>`).join('')}</select>`:''}<button class="sm" onclick="sched(${i})">${q.sid?'Reagendar':'🚀 Agendar'}</button>${q.sid?`<button class="ghost sm" onclick="unsched(${i})">Cancelar agend.</button>`:''}${q.st==='Postado'?['views','likes','coms'].map(k=>`<input class="num" type="number" placeholder="${k}" value="${q[k]||''}" onchange="S.queue[${i}].${k}=+this.value;save();render()">`).join(''):''}<button class="ghost sm" onclick="copy(S.queue[${i}].cap||S.queue[${i}].title)">Copiar legenda</button>
         <button class="ghost sm" onclick="S.queue.splice(${i},1);save();render()">Remover</button></div>
     </div>`).join('')||'<p class="mut">A fila está vazia.</p>';
 }
@@ -226,7 +232,7 @@ function selAll(pid){const p=proj(pid);p.selected=p.selected.length===p.clips.le
 function delP(pid){S.projects=S.projects.filter(p=>p.id!==pid);save();render()}
 function toQueue(pid){
   const p=proj(pid);if(!p.selected.length){toast('Selecione cortes primeiro');return}
-  p.clips.filter(c=>p.selected.includes(c.id)).forEach(c=>S.queue.push({title:c.title,plats:['TikTok','Shorts','Reels'],st:'Pendente',cap:c.title+' #gtaiv #hypeon #shorts',when:''}));
+  p.clips.filter(c=>p.selected.includes(c.id)).forEach(c=>S.queue.push({pid:p.pid,cid:c.cid,title:c.title,plats:['TikTok','Shorts','Reels'],st:'Pendente',cap:c.title+' #gtaiv #hypeon #shorts',when:''}));
   p.selected=[];save();render();toast('Enviado para a fila 📅');
 }
 function togPl(i,pl){const a=S.queue[i].plats,k=a.indexOf(pl);k<0?a.push(pl):a.splice(k,1);save();render()}
@@ -240,11 +246,58 @@ $('#gen').onclick=()=>{
 };
 
 /* ---------- Config ---------- */
-$('#key').value=S.cfg.key;$('#org').value=S.cfg.org;$('#proxy').value=S.cfg.proxy;
-$('#save').onclick=()=>{S.cfg={key:$('#key').value.trim(),org:$('#org').value.trim(),proxy:$('#proxy').value.trim()};save();render();toast('Salvo ✅')};
+$('#key').value=S.cfg.key;$('#yt').value=S.cfg.yt||'';$('#org').value=S.cfg.org;$('#proxy').value=S.cfg.proxy;
+$('#save').onclick=()=>{S.cfg={key:$('#key').value.trim(),org:$('#org').value.trim(),proxy:$('#proxy').value.trim(),yt:$('#yt').value.trim()};save();render();toast('Salvo ✅')};
 $('#wipe').onclick=()=>{if(confirm('Apagar projetos, fila e chave?')){S={cfg:{key:'',org:'',proxy:''},projects:[],queue:[]};save();location.reload()}};
-$('#go').onclick=generate;
+$('#go').onclick=()=>generate();
 S.projects.filter(p=>p.status==='run'&&p.pid&&S.cfg.key).forEach(poll);
+render();
+
+/* ---------- Novos recursos ---------- */
+let LCH='',LV=[];
+const PRE=[['preset-fancy-Gameplay','Gameplay'],['preset-fancy-Karaoke','Karaoke'],['preset-fancy-Beasty','Beasty'],['preset-fancy-Popline','Popline'],['preset-fancy-Simple','Simple']];
+$('#url').parentElement.insertAdjacentHTML('afterend','<label>Estilo da legenda (template)<select id="tpl"></select></label>');
+$('#tpl').onchange=()=>{S.tpl=$('#tpl').value;save()};
+async function sched(i){
+  const q=S.queue[i],a=S.accounts[q.acc];
+  if(!S.cfg.key||!q.pid){toast('Só funciona com o OpusClip conectado');return}
+  if(!a||!q.when){toast('Escolha a conta e a data');return}
+  try{
+    const r=await api('/api/publish-schedules',{method:'POST',body:JSON.stringify({projectId:q.pid,clipId:q.cid,postAccountId:a.postAccountId,...(a.subAccountId?{subAccountId:a.subAccountId}:{}),postDetail:{title:q.title.slice(0,100),mediaType:'video',custom:{description:q.cap||'',privacy:'public'}},publishAt:new Date(q.when).toISOString()})});
+    q.sid=r.data?.scheduleId||r.scheduleId;q.st='Agendado';save();render();toast('Agendado no OpusClip 🚀');
+  }catch(e){toast(e.message)}
+}
+async function unsched(i){const q=S.queue[i];try{await api('/api/publish-schedules/'+q.sid,{method:'DELETE'});q.sid=null;q.st='Pendente';save();render();toast('Agendamento cancelado')}catch(e){toast(e.message)}}
+$('#load').onclick=async()=>{
+  try{const a=await api('/api/social-accounts?q=mine');S.accounts=a.data||a;
+    const t=await api('/api/brand-templates?q=mine');S.templates=Array.isArray(t)?t:(t.data||[]);
+    save();render();toast('Contas e templates carregados ✅')}catch(e){toast(e.message)}
+};
+$('#lv').onclick=async()=>{
+  if(!S.cfg.yt){toast('Coloque a chave do YouTube na aba Conexão');return}
+  try{const r=await fetch('https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&eventType=live&maxResults=12&q=GTA%20IV&key='+encodeURIComponent(S.cfg.yt));
+    const j=await r.json();if(j.error)throw new Error(j.error.message);LV=j.items||[];render()}catch(e){toast(e.message)}
+};
+function useLive(k){LCH=LV[k].snippet.channelTitle;$('#url').value='https://www.youtube.com/watch?v='+LV[k].id.videoId;document.querySelector('nav [data-t=cortes]').click()}
+$('#sa').onclick=()=>{
+  const c=$('#sn').value.trim(),l=$('#sl').value.trim();if(!c)return;
+  S.streamers.push({canal:c,link:/^https?:\/\//.test(l)?l:'',st:'Pendente'});$('#sn').value=$('#sl').value='';save();render();
+};
+$('#sm').onclick=()=>copy('Olá! Sou do canal HypeON e faço cortes de lives de GTA IV. Posso cortar suas lives, com crédito e link para o seu canal em cada vídeo? Se preferir, me diga quais trechos evitar. Obrigado!');
+const _r=render;
+render=function(){
+  _r();
+  const v=$('#tpl').value||S.tpl;
+  $('#tpl').innerHTML=PRE.map(x=>`<option value="${x[0]}">${x[1]}</option>`).concat(S.templates.map(t=>`<option value="${esc(t.templateId)}">★ ${esc(t.name)}</option>`)).join('');
+  $('#tpl').value=v;
+  const P=S.queue.filter(q=>q.st==='Postado'),sum=k=>P.reduce((a,q)=>a+(q[k]||0),0);
+  $('#kpi').innerHTML=[['Projetos',S.projects.length],['Cortes na fila',S.queue.length],['Postados',P.length],['Views',sum('views')],['Likes',sum('likes')],['Comentários',sum('coms')]].map(x=>`<div><b>${x[1]}</b><span class="mut">${x[0]}</span></div>`).join('');
+  const top=[...P].sort((a,b)=>(b.views||0)-(a.views||0)).slice(0,5),mx=Math.max(1,...top.map(q=>q.views||0));
+  $('#top').innerHTML=top.map(q=>`<div>${esc(q.title)} · <span class="score">${q.views||0}</span><div class="bar" style="width:${Math.max(4,(q.views||0)/mx*100)}%"></div></div>`).join('')||'<p class="mut">Sem dados ainda.</p>';
+  const auth=c=>S.streamers.some(x=>x.st==='Autorizado'&&x.canal.toLowerCase()===c.toLowerCase());
+  $('#lives').innerHTML=LV.map((v,k)=>{const s=v.snippet;return `<div class="card live"><img src="${esc(s.thumbnails.medium.url)}" alt=""><b>${esc(s.title)}</b><p class="mut">${esc(s.channelTitle)} · ${auth(s.channelTitle)?'✅ autorizado':'⚠️ sem autorização'}</p><button class="sm" onclick="useLive(${k})">✂️ Cortar esta live</button></div>`}).join('')||'<p class="mut">Toque em Buscar para ver as lives de GTA IV no ar agora.</p>';
+  $('#strs').innerHTML=S.streamers.map((s,k)=>`<div class="card"><b>${esc(s.canal)}</b> ${s.link?`<a class="mut" href="${esc(s.link)}" target="_blank" rel="noopener">link ↗</a>`:''}<div class="row" style="margin-top:8px"><select style="width:auto;margin:0" onchange="S.streamers[${k}].st=this.value;save();render()">${['Pendente','Autorizado','Negado'].map(x=>`<option ${s.st===x?'selected':''}>${x}</option>`).join('')}</select><button class="ghost sm" onclick="S.streamers.splice(${k},1);save();render()">Remover</button></div></div>`).join('')||'<p class="mut">Nenhum canal cadastrado.</p>';
+};
 render();
 </script>
 </body>
