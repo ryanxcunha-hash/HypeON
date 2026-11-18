@@ -3,239 +3,249 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Duo Finn</title>
-<meta name="theme-color" content="#151a27">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Duo Finn">
-<link rel="apple-touch-icon" href="icon-180.png">
-<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#0b0b12">
+<title>HypeON · Gerenciador de Cortes</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡</text></svg>">
 <style>
-:root{--bg:#151a27;--card:#1e2436;--card2:#262d43;--line:#2d3550;--tx:#e9edf8;--mu:#8e98b4;--blue:#5b8cff;--rose:#ff6b8b;--green:#4ade9a;--amber:#fbbf4a;--r:20px}
-*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{margin:0;background:var(--bg);color:var(--tx);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased}
-body{padding:env(safe-area-inset-top) 14px calc(110px + env(safe-area-inset-bottom));max-width:560px;margin:0 auto}
-button,input,select{font:inherit;color:inherit}
-button{background:none;border:0;cursor:pointer;padding:0}
-header{display:flex;align-items:center;justify-content:space-between;padding:14px 2px 10px;position:sticky;top:0;background:linear-gradient(var(--bg) 80%,transparent);z-index:5}
-.mon{display:flex;align-items:center;gap:6px}
-.mon h1{font-size:21px;margin:0;font-weight:700;min-width:150px;text-align:center;letter-spacing:-.3px}
-.ib{width:36px;height:36px;border-radius:12px;background:var(--card);display:grid;place-items:center;font-size:17px;color:var(--mu)}
-.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:18px;margin-bottom:12px}
-.lbl{font-size:13px;color:var(--mu);margin:0 0 6px}
-.big{font-size:44px;font-weight:700;letter-spacing:-1.5px;line-height:1}
-.big small{font-size:22px;color:var(--mu);font-weight:600;letter-spacing:0}
-.big .rs{font-size:22px;color:var(--mu);margin-right:4px;letter-spacing:0}
-.hint{font-size:12.5px;color:var(--green);margin-top:8px}
-.bar{display:flex;height:10px;border-radius:6px;overflow:hidden;background:var(--card2);margin:16px 0 12px;gap:2px}
-.bar i{display:block;height:100%}
-.leg{display:grid;grid-template-columns:1fr 1fr;gap:10px 12px}
-.leg div{font-size:12px;color:var(--mu)}
-.leg b{display:block;color:var(--tx);font-size:14px;margin-top:2px;font-weight:600}
-.dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:5px}
-.row{display:flex;align-items:center;gap:12px;padding:12px 0;border-top:1px solid var(--line)}
-.row:first-of-type{border-top:0}
-.row .n{flex:1;min-width:0}
-.row .n span{display:block;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.row .n em{font-style:normal;font-size:12px;color:var(--mu)}
-.row .v{font-size:15px;font-weight:600;font-variant-numeric:tabular-nums}
-.ck{width:26px;height:26px;border-radius:50%;border:2px solid #44507a;flex:none;display:grid;place-items:center;color:transparent;font-size:14px}
-.paid .ck{background:var(--green);border-color:var(--green);color:#0d2a1d}
-.paid .n span,.paid .v{color:var(--mu);text-decoration:line-through}
-.sh{display:flex;justify-content:space-between;align-items:baseline}
-.sh h2{font-size:16px;margin:0;font-weight:650}
-.split{display:flex;height:34px;border-radius:10px;overflow:hidden;margin:12px 0 6px;font-size:12px;font-weight:600}
-.split div{display:grid;place-items:center;min-width:0}
-.two{display:flex;justify-content:space-between;font-size:13px;color:var(--mu)}
-.two b{display:block;color:var(--tx);font-size:16px;margin-top:2px}
-.two div:last-child{text-align:right}
-.cards{display:flex;gap:12px;overflow-x:auto;margin:14px -18px 0;padding:0 18px 4px;scroll-snap-type:x mandatory;scrollbar-width:none}
-.cards::-webkit-scrollbar{display:none}
-.cc{flex:none;width:76%;scroll-snap-align:start;border-radius:18px;padding:16px;height:150px;display:flex;flex-direction:column;justify-content:space-between;background:linear-gradient(135deg,#323a55,#222840);border:1px solid #3a4466;text-align:left}
-.cc:nth-child(2n){background:linear-gradient(135deg,#d9731f,#a9500f);border-color:#e58a3a}
-.cc:nth-child(3n){background:linear-gradient(135deg,#2f5fe0,#1e3a9c);border-color:#5b8cff}
-.cc .t{display:flex;justify-content:space-between;font-size:14px;font-weight:600}
-.cc .a{font-size:24px;font-weight:700;letter-spacing:-.5px}
-.cc .d{font-size:12px;opacity:.8;display:flex;justify-content:space-between}
-.meter{position:relative;height:10px;border-radius:6px;background:var(--card2);margin:18px 0 6px}
-.meter i{position:absolute;left:0;top:0;bottom:0;border-radius:6px}
-.meter u{position:absolute;top:-5px;bottom:-5px;width:2px;background:var(--tx);border-radius:2px}
-.empty{text-align:center;color:var(--mu);font-size:14px;padding:18px 6px}
-.empty button{margin-top:12px;background:var(--blue);color:#fff;border-radius:12px;padding:10px 16px;font-weight:600}
-.fab{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(18px + env(safe-area-inset-bottom));background:var(--blue);color:#fff;border-radius:18px;padding:15px 26px;font-weight:650;font-size:16px;box-shadow:0 10px 30px rgba(20,40,120,.55);z-index:6}
-.sheet{position:fixed;inset:0;background:rgba(8,10,18,.6);display:none;align-items:flex-end;z-index:20}
-.sheet.on{display:flex}
-.sheet form{width:100%;max-width:560px;margin:0 auto;background:var(--card);border-radius:26px 26px 0 0;padding:22px 18px calc(22px + env(safe-area-inset-bottom));border:1px solid var(--line);animation:up .22s ease-out}
-@keyframes up{from{transform:translateY(40px);opacity:0}}
-.sheet h3{margin:0 0 14px;font-size:18px}
-.f{display:block;margin-bottom:12px;font-size:12.5px;color:var(--mu)}
-.f input,.f select{display:block;width:100%;margin-top:5px;background:var(--card2);border:1px solid var(--line);border-radius:12px;padding:12px;font-size:16px;color:var(--tx)}
-.g2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.act{display:flex;gap:10px;margin-top:6px}
-.act button{flex:1;padding:14px;border-radius:14px;font-weight:650;background:var(--card2)}
-.act .ok{background:var(--blue);color:#fff;flex:2}
-.act .del{color:var(--rose);flex:1}
-@media (prefers-reduced-motion:reduce){.sheet form{animation:none}}
+:root{--bg:#0b0b12;--card:#16161f;--line:#262633;--tx:#f4f4f8;--mut:#9393a8;--ac:#8b5cf6;--ac2:#ec4899;--ok:#22c55e;--warn:#f59e0b}
+@media(prefers-color-scheme:light){:root{--bg:#f6f6fb;--card:#fff;--line:#e3e3ee;--tx:#14141c;--mut:#6b6b80}}
+*{box-sizing:border-box;margin:0;-webkit-tap-highlight-color:transparent}
+body{background:var(--bg);color:var(--tx);font:15px/1.45 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding-bottom:84px}
+header{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line);padding:14px 16px;display:flex;align-items:center;gap:10px}
+.logo{font-weight:900;font-size:22px;letter-spacing:-.5px}
+.logo b{background:linear-gradient(90deg,var(--ac),var(--ac2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.pill{margin-left:auto;font-size:12px;padding:4px 10px;border-radius:99px;border:1px solid var(--line);color:var(--mut)}
+.pill.on{color:var(--ok);border-color:var(--ok)}
+main{max-width:760px;margin:0 auto;padding:16px}
+.tab{display:none}.tab.on{display:block}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;margin-bottom:14px}
+h2{font-size:18px;margin-bottom:10px}h3{font-size:15px}
+.mut{color:var(--mut);font-size:13px}
+input,select,textarea{width:100%;background:var(--bg);color:var(--tx);border:1px solid var(--line);border-radius:12px;padding:12px;font:inherit;margin-top:6px}
+label{display:block;margin-top:12px;font-size:13px;color:var(--mut)}
+button{font:inherit;cursor:pointer;border:0;border-radius:12px;padding:12px 16px;color:#fff;font-weight:700;background:linear-gradient(90deg,var(--ac),var(--ac2))}
+button.ghost{background:transparent;border:1px solid var(--line);color:var(--tx);font-weight:600}
+button.sm{padding:8px 12px;font-size:13px}
+button:disabled{opacity:.5}
+.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px;margin-top:12px}
+.clip{border:2px solid var(--line);border-radius:14px;overflow:hidden;background:var(--bg)}
+.clip.sel{border-color:var(--ac)}
+.thumb{aspect-ratio:9/16;max-height:300px;width:100%;background:linear-gradient(160deg,#2a1b4d,#4d1b3a);display:flex;align-items:center;justify-content:center;font-size:40px;overflow:hidden}
+.thumb video{width:100%;height:100%;object-fit:cover}
+.cb{padding:10px}
+.score{font-weight:800;color:var(--warn)}
+.chip{display:inline-block;padding:6px 12px;border-radius:99px;border:1px solid var(--line);font-size:13px;margin:3px 3px 0 0;cursor:pointer}
+.chip.on{background:var(--ac);border-color:var(--ac);color:#fff}
+.st{font-size:12px;padding:3px 9px;border-radius:99px;background:var(--line)}
+.st.ok{background:var(--ok);color:#06240f}.st.run{background:var(--warn);color:#2b1b00}
+nav{position:fixed;bottom:0;left:0;right:0;background:var(--card);border-top:1px solid var(--line);display:flex;padding:6px 6px calc(6px + env(safe-area-inset-bottom,0px))}
+nav button{flex:1;background:none;color:var(--mut);font-size:11px;padding:6px;font-weight:600;display:flex;flex-direction:column;align-items:center;gap:2px}
+nav button span{font-size:20px}nav button.on{color:var(--ac)}
+.toast{position:fixed;left:50%;bottom:96px;transform:translateX(-50%);background:var(--tx);color:var(--bg);padding:10px 16px;border-radius:99px;font-size:14px;opacity:0;pointer-events:none;transition:.25s;z-index:9}
+.toast.show{opacity:1}
 </style>
 </head>
 <body>
-<header>
-  <div class="mon"><button class="ib" id="prev" aria-label="Mês anterior">‹</button><h1 id="mt"></h1><button class="ib" id="next" aria-label="Próximo mês">›</button></div>
-  <button class="ib" id="cfg" aria-label="Ajustes">⚙</button>
-</header>
-<main id="app"></main>
-<button class="fab" id="add">+ Adicionar conta</button>
+<header><div class="logo">Hype<b>ON</b> ⚡</div><span class="pill" id="mode">modo demo</span></header>
+<main>
 
-<div class="sheet" id="sb"><form id="fb">
-  <h3 id="fbt">Nova conta</h3>
-  <label class="f">Nome<input name="name" required placeholder="Ex.: Aluguel"></label>
-  <div class="g2">
-    <label class="f">Valor (R$)<input name="amount" type="number" step="0.01" min="0" inputmode="decimal" required></label>
-    <label class="f">Vence no dia<input name="day" type="number" min="1" max="31" inputmode="numeric" required></label>
+<section class="tab on" id="t-cortes">
+  <div class="card">
+    <h2>Novo corte</h2>
+    <p class="mut">Cole o link da live (YouTube, Twitch…) e a IA do OpusClip gera os cortes legendados.</p>
+    <label>Link da live
+      <input id="url" type="url" placeholder="https://www.youtube.com/watch?v=...">
+    </label>
+    <div class="row" style="margin-top:12px">
+      <button id="go">✂️ Gerar cortes</button>
+      <span class="mut" id="msg"></span>
+    </div>
   </div>
-  <div class="g2">
-    <label class="f">Quem paga<select name="who"><option value="split">Dividir 50/50</option><option value="me">Só eu</option><option value="partner">Só o(a) parceiro(a)</option></select></label>
-    <label class="f">Tipo<select name="cat"><option value="casa">Casa / moradia</option><option value="cartao">Cartão</option><option value="reserva">Reserva</option><option value="outros">Outros</option></select></label>
-  </div>
-  <div class="act"><button type="button" class="del" id="fdel">Excluir</button><button type="button" id="fcan">Cancelar</button><button class="ok">Salvar</button></div>
-</form></div>
+  <div id="projects"></div>
+</section>
 
-<div class="sheet" id="ss"><form id="fs">
-  <h3>Ajustes</h3>
-  <label class="f">Seu salário líquido (R$)<input name="salary" type="number" step="0.01" min="0" inputmode="decimal" required></label>
-  <div class="g2">
-    <label class="f">Seu nome<input name="me" required></label>
-    <label class="f">Parceiro(a)<input name="partner" required></label>
+<section class="tab" id="t-fila">
+  <h2>Fila de postagem</h2>
+  <p class="mut" style="margin-bottom:12px">Cortes que você selecionou. Defina onde e quando postar.</p>
+  <div id="queue"></div>
+</section>
+
+<section class="tab" id="t-ideias">
+  <div class="card">
+    <h2>Gerador de títulos e hashtags</h2>
+    <label>Cena do corte (ex.: “Niko bate o carro”)
+      <input id="tema" placeholder="O que acontece no corte?">
+    </label>
+    <button style="margin-top:12px" id="gen">Gerar ideias</button>
+    <div id="ideias" style="margin-top:12px"></div>
   </div>
-  <label class="f">Meta de gasto com moradia (% do salário)<input name="goal" type="number" min="5" max="90" inputmode="numeric" required></label>
-  <div class="act"><button type="button" id="scan">Cancelar</button><button class="ok">Salvar</button></div>
-</form></div>
+  <div class="card">
+    <h3>Hashtags prontas</h3>
+    <p class="mut" id="tags" style="margin:8px 0">#gtaiv #gta4 #nikobellic #libertycity #rockstar #gaming #shorts #cortes #hypeon</p>
+    <button class="ghost sm" onclick="copy(document.getElementById('tags').textContent)">Copiar</button>
+  </div>
+  <div class="card">
+    <h3>Checklist antes de postar</h3>
+    <label style="color:var(--tx)"><input type="checkbox" style="width:auto;margin-right:8px">Gancho nos 3 primeiros segundos</label>
+    <label style="color:var(--tx)"><input type="checkbox" style="width:auto;margin-right:8px">Legenda revisada (nomes e gírias)</label>
+    <label style="color:var(--tx)"><input type="checkbox" style="width:auto;margin-right:8px">Autorização do dono da live</label>
+    <label style="color:var(--tx)"><input type="checkbox" style="width:auto;margin-right:8px">Título + hashtags prontos</label>
+    <label style="color:var(--tx)"><input type="checkbox" style="width:auto;margin-right:8px">Crédito ao streamer na descrição</label>
+  </div>
+</section>
+
+<section class="tab" id="t-config">
+  <div class="card">
+    <h2>Conexão com o OpusClip</h2>
+    <p class="mut">A chave fica salva só neste navegador. Sem chave, o app roda em modo demo. A API exige plano Pro (Beta) ou Business.</p>
+    <label>API Key<input id="key" type="password" placeholder="Cole sua API key"></label>
+    <label>Org ID (opcional)<input id="org" placeholder="x-opus-org-id"></label>
+    <label>URL do proxy (opcional)<input id="proxy" placeholder="https://seu-worker.workers.dev"></label>
+    <p class="mut" style="margin-top:8px">Se o navegador bloquear a chamada direta (CORS), use um proxy simples como um Cloudflare Worker.</p>
+    <div class="row" style="margin-top:12px"><button id="save">Salvar</button><button class="ghost" id="wipe">Apagar dados</button></div>
+  </div>
+</section>
+</main>
+
+<nav>
+  <button class="on" data-t="cortes"><span>✂️</span>Cortes</button>
+  <button data-t="fila"><span>📅</span>Fila</button>
+  <button data-t="ideias"><span>💡</span>Ideias</button>
+  <button data-t="config"><span>⚙️</span>Conexão</button>
+</nav>
+<div class="toast" id="toast"></div>
 
 <script>
 const $=s=>document.querySelector(s);
-const brl=n=>n.toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
-const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const MES=['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
-const KEY='duofinn.v1';
-let S;
-try{S=JSON.parse(localStorage.getItem(KEY))}catch(e){}
-S=S||{salary:8000,me:'Eu',partner:'Parceiro(a)',goal:30,months:{}};
-const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}};
-let cur=new Date();cur=new Date(cur.getFullYear(),cur.getMonth(),1);
-const mk=d=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0');
-const bills=()=>S.months[mk(cur)]||(S.months[mk(cur)]=[]);
-const mine=b=>b.who==='split'?b.amount/2:b.who==='me'?b.amount:0;
-const theirs=b=>b.amount-mine(b);
-const sum=(a,f)=>a.reduce((t,b)=>t+f(b),0);
-const money=n=>{const[i,d]=n.toFixed(2).split('.');return `<span class="rs">R$</span>${(+i).toLocaleString('pt-BR')}<small>,${d}</small>`};
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+let S={cfg:{key:'',org:'',proxy:''},projects:[],queue:[]};
+try{S=Object.assign(S,JSON.parse(localStorage.getItem('hypeon')||'{}'))}catch(e){}
+const save=()=>{try{localStorage.setItem('hypeon',JSON.stringify(S))}catch(e){}};
+function toast(t){const e=$('#toast');e.textContent=t;e.classList.add('show');setTimeout(()=>e.classList.remove('show'),2200)}
+function copy(t){navigator.clipboard?.writeText(t).then(()=>toast('Copiado!'),()=>toast('Não deu para copiar'))}
 
-function render(){
-  $('#mt').textContent=MES[cur.getMonth()]+' '+cur.getFullYear();
-  const bs=bills().slice().sort((a,b)=>a.day-b.day);
-  const app=$('#app');
-  if(!bs.length){
-    const prev=S.months[mk(new Date(cur.getFullYear(),cur.getMonth()-1,1))]||[];
-    app.innerHTML=`<div class="card empty">Nenhuma conta em ${MES[cur.getMonth()].toLowerCase()}.<br>${prev.length?'<button id="copy">Copiar contas do mês anterior</button>':'Toque em “Adicionar conta” para começar.'}</div>`;
-    const c=$('#copy');if(c)c.onclick=()=>{S.months[mk(cur)]=prev.map(b=>({...b,id:uid(),paid:false}));save();render()};
-    if(!prev.length)return;return;
-  }
-  const mym=sum(bs,mine), free=S.salary-mym, pct=S.salary?Math.round(free/S.salary*100):0;
-  const cat=c=>sum(bs.filter(b=>b.cat===c),mine);
-  const segs=[['casa','var(--blue)','Casa'],['cartao','var(--rose)','Cartões'],['reserva','var(--amber)','Reserva'],['outros','#9a7bff','Outros']];
-  const w=v=>Math.max(0,v/S.salary*100);
-  const open=bs.filter(b=>!b.paid), total=sum(open,b=>b.amount);
-  const tot=sum(bs,b=>b.amount), pm=mym/tot*100, pp=100-pm;
-  const cards=bs.filter(b=>b.cat==='cartao');
-  const casa=cat('casa'), cp=S.salary?casa/S.salary*100:0, over=cp>S.goal;
-  app.innerHTML=`
-  <section class="card">
-    <p class="lbl">Saldo previsto</p>
-    <div class="big" style="color:${free<0?'var(--rose)':'var(--tx)'}">${money(free)}</div>
-    <div class="hint" style="color:${free<0?'var(--rose)':'var(--green)'}">${pct}% do salário livre após pagar todas as contas</div>
-    <div class="bar">${segs.map(s=>`<i style="width:${w(cat(s[0]))}%;background:${s[1]}"></i>`).join('')}<i style="width:${Math.max(0,w(free))}%;background:var(--green)"></i></div>
-    <div class="leg">
-      <div><span class="dot" style="background:var(--tx)"></span>Salário<b>${brl(S.salary)}</b></div>
-      ${segs.filter(s=>cat(s[0])>0).map(s=>`<div><span class="dot" style="background:${s[1]}"></span>${s[2]}<b>− ${brl(cat(s[0]))}</b></div>`).join('')}
-      <div><span class="dot" style="background:var(--green)"></span>Sobra<b>${brl(free)}</b></div>
-    </div>
-  </section>
-
-  <section class="card">
-    <div class="sh"><h2>Contas a pagar</h2><span class="lbl" style="margin:0">${open.length} de ${bs.length} pendentes</span></div>
-    <div class="big" style="font-size:32px;margin:10px 0 6px">${money(total)}</div>
-    <div>${bs.map(b=>`<div class="row ${b.paid?'paid':''}"><button class="ck" data-p="${b.id}" aria-label="Marcar como paga">✓</button><button class="n" data-e="${b.id}" style="text-align:left"><span>${esc(b.name)}</span><em>dia ${b.day} · ${b.who==='split'?'dividida':b.who==='me'?esc(S.me):esc(S.partner)}</em></button><div class="v">${brl(b.amount)}</div></div>`).join('')}</div>
-  </section>
-
-  <section class="card">
-    <div class="sh"><h2>Divisão da casa</h2><span class="lbl" style="margin:0">total ${brl(tot)}</span></div>
-    <div class="split"><div style="width:${pm}%;background:var(--blue)">${pm.toFixed(1).replace('.',',')}%</div><div style="width:${pp}%;background:var(--rose)">${pp.toFixed(1).replace('.',',')}%</div></div>
-    <div class="two"><div>${esc(S.me)} paga<b>${brl(mym)}</b></div><div>${esc(S.partner)} paga<b>${brl(tot-mym)}</b></div></div>
-  </section>
-
-  ${cards.length?`<section class="card"><div class="sh"><h2>Cartões</h2><span class="lbl" style="margin:0">faturas do mês</span></div>
-    <div class="cards">${cards.map(b=>`<button class="cc" data-e="${b.id}"><div class="t"><span>${esc(b.name)}</span><span>${b.paid?'Paga':'Aberta'}</span></div><div class="a">${brl(b.amount)}</div><div class="d"><span>Vence dia ${b.day}</span><span>Sua parte ${brl(mine(b))}</span></div></button>`).join('')}</div></section>`:''}
-
-  <section class="card">
-    <p class="lbl">Moradia · quanto você gasta pra morar</p>
-    <div class="big" style="font-size:32px">${money(casa)}</div>
-    <div class="hint" style="color:${over?'var(--amber)':'var(--green)'}">${over?'▲':'✓'} ${Math.round(cp)}% do salário · meta até ${S.goal}%</div>
-    <div class="meter"><i style="width:${Math.min(100,cp/60*100)}%;background:${over?'var(--amber)':'var(--green)'}"></i><u style="left:${S.goal/60*100}%"></u></div>
-    <div class="two" style="font-size:11px"><span>0%</span><span>60% do salário</span></div>
-    ${bs.filter(b=>b.cat==='casa').map(b=>`<div class="row"><div class="n"><span>${esc(b.name)}</span></div><div class="v">${brl(mine(b))}</div></div>`).join('')}
-  </section>`;
-}
-
-const uid=()=>Math.random().toString(36).slice(2,9);
-app=$('#app');
-$('#app').addEventListener('click',e=>{
-  const p=e.target.closest('[data-p]'),ed=e.target.closest('[data-e]');
-  if(p){const b=bills().find(x=>x.id===p.dataset.p);b.paid=!b.paid;save();render()}
-  else if(ed)openBill(ed.dataset.e);
+document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>{
+  document.querySelectorAll('nav button,.tab').forEach(x=>x.classList.remove('on'));
+  b.classList.add('on');$('#t-'+b.dataset.t).classList.add('on');scrollTo(0,0);
 });
-$('#prev').onclick=()=>{cur=new Date(cur.getFullYear(),cur.getMonth()-1,1);render()};
-$('#next').onclick=()=>{cur=new Date(cur.getFullYear(),cur.getMonth()+1,1);render()};
 
-let editing=null;
-function openBill(id){
-  editing=id;const f=$('#fb'),b=id&&bills().find(x=>x.id===id);
-  $('#fbt').textContent=b?'Editar conta':'Nova conta';
-  f.name.value=b?b.name:'';f.amount.value=b?b.amount:'';f.day.value=b?b.day:'';
-  f.who.value=b?b.who:'split';f.cat.value=b?b.cat:'casa';
-  $('#fdel').style.display=b?'':'none';
-  $('#sb').classList.add('on');
+/* ---------- API OpusClip ---------- */
+async function api(path,opt={}){
+  const base=(S.cfg.proxy||'https://api.opus.pro').replace(/\/$/,'');
+  const h={'Content-Type':'application/json',Authorization:'Bearer '+S.cfg.key};
+  if(S.cfg.org)h['x-opus-org-id']=S.cfg.org;
+  const r=await fetch(base+path,{...opt,headers:h});
+  if(!r.ok)throw new Error('Erro '+r.status);
+  return r.json();
 }
-$('#add').onclick=()=>openBill(null);
-$('#fcan').onclick=()=>$('#sb').classList.remove('on');
-$('#sb').addEventListener('click',e=>{if(e.target.id==='sb')e.target.classList.remove('on')});
-$('#fdel').onclick=()=>{const a=bills();a.splice(a.findIndex(x=>x.id===editing),1);save();$('#sb').classList.remove('on');render()};
-$('#fb').onsubmit=e=>{
-  e.preventDefault();const f=e.target;
-  const d={name:f.name.value.trim(),amount:parseFloat(f.amount.value)||0,day:Math.min(31,Math.max(1,parseInt(f.day.value)||1)),who:f.who.value,cat:f.cat.value};
-  if(editing)Object.assign(bills().find(x=>x.id===editing),d);else bills().push({id:uid(),paid:false,...d});
-  save();$('#sb').classList.remove('on');render();
+const pick=(o,...k)=>{for(const x of k)if(o?.[x]!=null)return o[x]};
+function normClip(c,i){
+  const ms=pick(c,'durationMs','duration');
+  return{
+    id:String(pick(c,'id','clipId')||i),
+    title:pick(c,'title','name')||'Corte '+(i+1),
+    desc:pick(c,'description','hook')||'',
+    score:pick(c,'score','viralityScore','viralScore'),
+    dur:ms?Math.round(ms>1000?ms/1000:ms):null,
+    video:pick(c,'uriForPreview','previewUrl','uriForExport')||''
+  };
+}
+async function generate(){
+  const url=$('#url').value.trim();
+  if(!/^https?:\/\//.test(url)){toast('Cole um link válido');return}
+  $('#go').disabled=true;$('#msg').textContent='Enviando…';
+  const p={id:'p'+Date.now(),url,status:'run',clips:[],selected:[],at:new Date().toLocaleString('pt-BR')};
+  S.projects.unshift(p);save();render();
+  try{
+    if(!S.cfg.key){await new Promise(r=>setTimeout(r,1800));p.clips=demo();p.status='ok';}
+    else{
+      const r=await api('/api/clip-projects',{method:'POST',body:JSON.stringify({videoUrl:url})});
+      p.pid=pick(r,'projectId','id')||pick(r.data,'projectId','id');
+      if(!p.pid)throw new Error('Resposta sem ID do projeto');
+      save();poll(p);
+    }
+  }catch(e){p.status='erro';toast(e.message+' · veja a aba Conexão')}
+  $('#go').disabled=false;$('#msg').textContent='';$('#url').value='';save();render();
+}
+async function poll(p){
+  for(let i=0;i<120&&p.status==='run';i++){
+    await new Promise(r=>setTimeout(r,10000));
+    try{
+      const r=await api('/api/exportable-clips?q=findByProjectId&projectId='+p.pid);
+      const list=Array.isArray(r)?r:(r.data||r.clips||[]);
+      if(list.length){p.clips=list.map(normClip);p.status='ok';save();render();toast('Cortes prontos! ✂️');return}
+    }catch(e){}
+  }
+  if(p.status==='run'){p.status='erro';save();render()}
+}
+function demo(){
+  const t=['Perseguição insana em Liberty City','Niko perde o controle do carro','O diálogo mais engraçado do Roman','Tiroteio épico na ponte','Explosão que ninguém esperava','Primeira vez no Hove Beach'];
+  return t.map((x,i)=>({id:'d'+i,title:x,desc:'Exemplo do modo demo',score:96-i*5,dur:20+i*7,video:''}));
+}
+
+/* ---------- Render ---------- */
+function render(){
+  $('#mode').textContent=S.cfg.key?'OpusClip conectado':'modo demo';
+  $('#mode').classList.toggle('on',!!S.cfg.key);
+  $('#projects').innerHTML=S.projects.map(p=>`
+    <div class="card">
+      <div class="row"><h3 style="flex:1;word-break:break-all">${esc(p.url)}</h3>
+        <span class="st ${p.status}">${p.status==='run'?'processando…':p.status==='ok'?p.clips.length+' cortes':'erro'}</span></div>
+      <p class="mut">${esc(p.at)}</p>
+      ${p.status==='ok'?`<div class="row" style="margin-top:10px">
+        <button class="sm" onclick="toQueue('${p.id}')">➕ Enviar ${p.selected.length||''} selecionados para a fila</button>
+        <button class="ghost sm" onclick="selAll('${p.id}')">Selecionar todos</button>
+        <button class="ghost sm" onclick="delP('${p.id}')">Excluir</button></div>
+      <div class="grid">${p.clips.map(c=>`
+        <div class="clip ${p.selected.includes(c.id)?'sel':''}" onclick="tog('${p.id}','${c.id}')">
+          <div class="thumb">${c.video?`<video src="${esc(c.video)}" muted playsinline preload="metadata" controls onclick="event.stopPropagation()"></video>`:'🎬'}</div>
+          <div class="cb"><b>${esc(c.title)}</b>
+            <div class="mut">${c.dur?c.dur+'s · ':''}${c.score!=null?`<span class="score">🔥 ${esc(c.score)}</span>`:''}</div>
+            <div class="mut">${p.selected.includes(c.id)?'✅ Selecionado':'Toque para selecionar'}</div></div>
+        </div>`).join('')}</div>`:p.status==='run'?'<p class="mut" style="margin-top:10px">A IA está cortando a live. Pode levar alguns minutos, deixe esta aba aberta.</p>':'<button class="ghost sm" style="margin-top:10px" onclick="delP(\''+p.id+'\')">Excluir</button>'}
+    </div>`).join('')||'<p class="mut">Nenhum projeto ainda. Cole um link acima.</p>';
+
+  const plats=['TikTok','Shorts','Reels'];
+  $('#queue').innerHTML=S.queue.map((q,i)=>`
+    <div class="card">
+      <b>${esc(q.title)}</b>
+      <div>${plats.map(pl=>`<span class="chip ${q.plats.includes(pl)?'on':''}" onclick="togPl(${i},'${pl}')">${pl}</span>`).join('')}</div>
+      <label>Data de postagem<input type="datetime-local" value="${esc(q.when||'')}" onchange="S.queue[${i}].when=this.value;save()"></label>
+      <label>Legenda<textarea rows="2" onchange="S.queue[${i}].cap=this.value;save()">${esc(q.cap||'')}</textarea></label>
+      <div class="row" style="margin-top:10px">
+        <select style="width:auto;margin:0" onchange="S.queue[${i}].st=this.value;save()">
+          ${['Pendente','Agendado','Postado'].map(s=>`<option ${q.st===s?'selected':''}>${s}</option>`).join('')}</select>
+        <button class="ghost sm" onclick="copy(S.queue[${i}].cap||S.queue[${i}].title)">Copiar legenda</button>
+        <button class="ghost sm" onclick="S.queue.splice(${i},1);save();render()">Remover</button></div>
+    </div>`).join('')||'<p class="mut">A fila está vazia.</p>';
+}
+const proj=id=>S.projects.find(p=>p.id===id);
+function tog(pid,cid){const p=proj(pid),i=p.selected.indexOf(cid);i<0?p.selected.push(cid):p.selected.splice(i,1);save();render()}
+function selAll(pid){const p=proj(pid);p.selected=p.selected.length===p.clips.length?[]:p.clips.map(c=>c.id);save();render()}
+function delP(pid){S.projects=S.projects.filter(p=>p.id!==pid);save();render()}
+function toQueue(pid){
+  const p=proj(pid);if(!p.selected.length){toast('Selecione cortes primeiro');return}
+  p.clips.filter(c=>p.selected.includes(c.id)).forEach(c=>S.queue.push({title:c.title,plats:['TikTok','Shorts','Reels'],st:'Pendente',cap:c.title+' #gtaiv #hypeon #shorts',when:''}));
+  p.selected=[];save();render();toast('Enviado para a fila 📅');
+}
+function togPl(i,pl){const a=S.queue[i].plats,k=a.indexOf(pl);k<0?a.push(pl):a.splice(k,1);save();render()}
+
+/* ---------- Ideias ---------- */
+$('#gen').onclick=()=>{
+  const t=$('#tema').value.trim()||'essa cena';
+  const L=[`Ninguém esperava isso em GTA IV: ${t}`,`${t} e o final você NÃO vai acreditar`,`GTA IV continua insano: ${t}`,`POV: você jogou GTA IV em 2008 e viu ${t}`,`${t} 😂 #gtaiv`];
+  $('#ideias').innerHTML=L.map(x=>`<div class="row" style="margin-bottom:8px"><span style="flex:1">${esc(x)}</span><button class="ghost sm" data-c="${esc(x)}">Copiar</button></div>`).join('');
+  $('#ideias').querySelectorAll('button').forEach(b=>b.onclick=()=>copy(b.dataset.c));
 };
 
-$('#cfg').onclick=()=>{const f=$('#fs');f.salary.value=S.salary;f.me.value=S.me;f.partner.value=S.partner;f.goal.value=S.goal;$('#ss').classList.add('on')};
-$('#scan').onclick=()=>$('#ss').classList.remove('on');
-$('#ss').addEventListener('click',e=>{if(e.target.id==='ss')e.target.classList.remove('on')});
-$('#fs').onsubmit=e=>{e.preventDefault();const f=e.target;S.salary=parseFloat(f.salary.value)||0;S.me=f.me.value.trim();S.partner=f.partner.value.trim();S.goal=parseInt(f.goal.value)||30;save();$('#ss').classList.remove('on');render()};
-
-// Dados de exemplo no primeiro uso
-if(!Object.keys(S.months).length){
-  S.months[mk(cur)]=[
-    {name:'Aluguel',amount:2400,day:5,who:'split',cat:'casa'},
-    {name:'Condomínio',amount:900,day:10,who:'split',cat:'casa'},
-    {name:'Luz',amount:210,day:12,who:'split',cat:'casa'},
-    {name:'Internet',amount:120,day:15,who:'split',cat:'casa'},
-    {name:'Cartão principal',amount:3200,day:8,who:'me',cat:'cartao'},
-    {name:'Cartão da casa',amount:1800,day:12,who:'split',cat:'cartao'},
-    {name:'Guardar na reserva',amount:1000,day:5,who:'me',cat:'reserva'}
-  ].map(b=>({id:uid(),paid:false,...b}));
-  save();
-}
+/* ---------- Config ---------- */
+$('#key').value=S.cfg.key;$('#org').value=S.cfg.org;$('#proxy').value=S.cfg.proxy;
+$('#save').onclick=()=>{S.cfg={key:$('#key').value.trim(),org:$('#org').value.trim(),proxy:$('#proxy').value.trim()};save();render();toast('Salvo ✅')};
+$('#wipe').onclick=()=>{if(confirm('Apagar projetos, fila e chave?')){S={cfg:{key:'',org:'',proxy:''},projects:[],queue:[]};save();location.reload()}};
+$('#go').onclick=generate;
+S.projects.filter(p=>p.status==='run'&&p.pid&&S.cfg.key).forEach(poll);
 render();
-if('serviceWorker' in navigator)addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
 </script>
 </body>
 </html>
